@@ -1,0 +1,36 @@
+{
+	"name": "@ultraq/icu-message-formatter",
+	"version": "0.4.0",
+	"description": "Format ICU message syntax strings from supplied parameters and your own configurable types",
+	"author": "Emanuel Rabina <emanuelrabina@gmail.com> (http://www.ultraq.net.nz/)",
+	"license": "Apache-2.0",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/ultraq/icu-message-formatter.git"
+	},
+	"keywords": [
+		"icu",
+		"message",
+		"format",
+		"intl",
+		"i18n"
+	],
+	"main": "./lib/MessageFormatter.js",
+	"scripts": {
+		"lint": "eslint \"**/*.js\"",
+		"test": "jest",
+		"coverage": "cat coverage/lcov.info | coveralls",
+		"build": "babel source --out-dir lib --source-maps --ignore \"source/**/*.test.js\"",
+		"prepublishOnly": "npm run build"
+	},
+	"devDependencies": {
+		"@babel/cli": "^7.2.3",
+		"@babel/core": "^7.3.4",
+		"@babel/preset-env": "^7.3.4",
+		"coveralls": "^3.0.2",
+		"eslint": "^6.1.0",
+		"eslint-config-ultraq": "^2.2.0",
+		"intl": "^1.2.5",
+		"jest": "^24.1.0"
+	}
+}

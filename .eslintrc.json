@@ -1,0 +1,15 @@
+{
+	"extends": [
+		"eslint:recommended",
+		"ultraq"
+	],
+	"parserOptions": {
+		"ecmaVersion": 2018,
+		"sourceType": "script"
+	},
+	"env": {
+		"browser": true,
+		"node": true,
+		"es6": true
+	}
+}

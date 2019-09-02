@@ -26,7 +26,7 @@ Installation
 ------------
 
 ```
-npm install @ultraq/icu-message-formatter.git
+npm install @ultraq/icu-message-formatter
 ```
 
 

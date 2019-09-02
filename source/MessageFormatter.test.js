@@ -67,11 +67,21 @@ describe('MessageFormatter', function() {
 			expect(message).toBe('Hello Emanuel Emanuel!');
 		});
 
-		test('Returns empty strings for falsey message values', function() {
+		test('Returns empty strings for null/undefined message values', function() {
 			let formatter = new MessageFormatter();
 			[null, undefined].forEach(value => {
 				let message = formatter.format(value);
 				expect(message).toBe('');
+			});
+		});
+
+		test('Lets falsey values in parameters through', function() {
+			let formatter = new MessageFormatter();
+			[0, false].forEach(value => {
+				let message = formatter.format(`{param}`, {
+					param: value
+				});
+				expect(message).toBe(value.toString());
 			});
 		});
 	});

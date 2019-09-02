@@ -61,7 +61,10 @@ export default class MessageFormatter {
 				let block = result.substring(blockStartIndex, blockEndIndex + 1);
 				if (block) {
 					let [key, type, format] = splitFormattedArgument(block);
-					let value = values[key] || '';
+					let value = values[key];
+					if (value === null || value === undefined) {
+						value = '';
+					}
 					let typeHandler = type && this.typeHandlers[type];
 					result = result.replace(block, typeHandler ?
 						typeHandler(value, format, values, locale, this.format.bind(this)) :

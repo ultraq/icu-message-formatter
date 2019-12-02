@@ -1,4 +1,7 @@
 {
+	"plugins": [
+		"@babel/plugin-proposal-class-properties"
+	],
 	"presets": [
 		["@babel/preset-env", {
 			"targets": {
@@ -13,7 +16,7 @@
 			"presets": [
 				["@babel/preset-env", {
 					"targets": {
-						"node": "8"
+						"node": "current"
 					}
 				}]
 			]

@@ -16,6 +16,8 @@
 
 import {findClosingBracket, splitFormattedArgument} from './utilities.js';
 
+import {memoize} from '@ultraq/function-utils';
+
 /**
  * The main class for formatting messages.
  * 
@@ -46,7 +48,7 @@ export default class MessageFormatter {
 	 * @param {String} locale
 	 * @return {String}
 	 */
-	format(message, values = {}, locale) {
+	format = memoize((message, values = {}, locale) => {
 
 		if (!message) {
 			return '';
@@ -67,7 +69,7 @@ export default class MessageFormatter {
 					}
 					let typeHandler = type && this.typeHandlers[type];
 					result = result.replace(block, typeHandler ?
-						typeHandler(value, format, values, locale, this.format.bind(this)) :
+						typeHandler(value, format, values, locale, this.format) :
 						value
 					);
 				}
@@ -80,5 +82,5 @@ export default class MessageFormatter {
 		}
 
 		return result;
-	}
+	})
 }

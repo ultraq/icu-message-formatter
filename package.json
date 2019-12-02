@@ -1,6 +1,6 @@
 {
 	"name": "@ultraq/icu-message-formatter",
-	"version": "0.4.1",
+	"version": "0.5.0",
 	"description": "Format ICU message syntax strings from supplied parameters and your own configurable types",
 	"author": "Emanuel Rabina <emanuelrabina@gmail.com> (http://www.ultraq.net.nz/)",
 	"license": "Apache-2.0",
@@ -23,10 +23,15 @@
 		"build": "babel source --out-dir lib --source-maps --ignore \"source/**/*.test.js\"",
 		"prepublishOnly": "npm run build"
 	},
+	"dependencies": {
+		"@ultraq/function-utils": "^0.2.0"
+	},
 	"devDependencies": {
 		"@babel/cli": "^7.2.3",
 		"@babel/core": "^7.3.4",
+		"@babel/plugin-proposal-class-properties": "^7.7.4",
 		"@babel/preset-env": "^7.3.4",
+		"babel-eslint": "^10.0.3",
 		"coveralls": "^3.0.2",
 		"eslint": "^6.6.0",
 		"eslint-config-ultraq": "^2.2.0",

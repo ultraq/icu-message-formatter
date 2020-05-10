@@ -8,6 +8,7 @@ module.exports = {
 	],
 	coverageReporters: [
 		'html',
+		'lcov',
 		'text-summary'
 	],
 	coverageThreshold: {

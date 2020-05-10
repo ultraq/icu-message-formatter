@@ -18,7 +18,7 @@
 	"main": "./lib/MessageFormatter.js",
 	"scripts": {
 		"lint": "eslint \"**/*.js\"",
-		"test": "jest",
+		"test": "npm run lint && jest",
 		"coverage": "cat coverage/lcov.info | coveralls",
 		"build": "babel source --out-dir lib --source-maps --ignore \"source/**/*.test.js\"",
 		"prepublishOnly": "npm run build"
@@ -27,15 +27,18 @@
 		"@ultraq/function-utils": "^0.2.0"
 	},
 	"devDependencies": {
-		"@babel/cli": "^7.2.3",
-		"@babel/core": "^7.3.4",
-		"@babel/plugin-proposal-class-properties": "^7.7.4",
-		"@babel/preset-env": "^7.3.4",
-		"babel-eslint": "^10.0.3",
-		"coveralls": "^3.0.2",
-		"eslint": "^6.6.0",
-		"eslint-config-ultraq": "^2.2.0",
+		"@babel/cli": "^7.8.4",
+		"@babel/core": "^7.9.6",
+		"@babel/plugin-proposal-class-properties": "^7.8.3",
+		"@babel/preset-env": "^7.9.6",
+		"babel-eslint": "^10.1.0",
+		"coveralls": "^3.1.0",
+		"eslint": "^6.8.0",
+		"eslint-config-ultraq": "^2.3.3",
 		"intl": "^1.2.5",
-		"jest": "^24.9.0"
+		"jest": "^25.5.4"
+	},
+	"engines": {
+		"node": ">=8"
 	}
 }

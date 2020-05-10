@@ -19,7 +19,7 @@
 	"scripts": {
 		"lint": "eslint \"**/*.js\"",
 		"test": "npm run lint && jest",
-		"coverage": "cat coverage/lcov.info | coveralls",
+		"coverage": "cat ./coverage/lcov.info | coveralls",
 		"build": "babel source --out-dir lib --source-maps --ignore \"source/**/*.test.js\"",
 		"prepublishOnly": "npm run build"
 	},

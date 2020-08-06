@@ -25,8 +25,8 @@ const OTHER = 'other';
  * Handler for `plural` statements within ICU message syntax strings.  Returns
  * a formatted string for the branch that closely matches the current value.
  * 
- * See https://formatjs.io/guides/message-syntax/#plural-format for more details
- * on how the `plural` statement works.
+ * See https://formatjs.io/docs/core-concepts/icu-syntax#plural-format for more
+ * details on how the `plural` statement works.
  * 
  * @param {Number|String} value
  * @param {String} matches

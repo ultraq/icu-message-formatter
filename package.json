@@ -1,6 +1,6 @@
 {
 	"name": "@ultraq/icu-message-formatter",
-	"version": "0.6.1",
+	"version": "0.6.2",
 	"description": "Format ICU message syntax strings from supplied parameters and your own configurable types",
 	"author": "Emanuel Rabina <emanuelrabina@gmail.com> (http://www.ultraq.net.nz/)",
 	"license": "Apache-2.0",
@@ -15,8 +15,8 @@
 		"intl",
 		"i18n"
 	],
-	"module": "./lib/icu-message-formatter.es.js",
-	"main": "./lib/icu-message-formatter.cjs.js",
+	"module": "lib/icu-message-formatter.es.js",
+	"main": "lib/icu-message-formatter.cjs.js",
 	"sideEffects": false,
 	"scripts": {
 		"lint": "eslint \"**/*.js\"",

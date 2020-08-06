@@ -5,8 +5,7 @@
 	],
 	"parser": "babel-eslint",
 	"parserOptions": {
-		"ecmaVersion": 2019,
-		"sourceType": "script"
+		"ecmaVersion": 2019
 	},
 	"env": {
 		"browser": true,

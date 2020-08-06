@@ -37,7 +37,7 @@ that you know you'll encounter in your format strings.  Then, call `format` to
 process whatever string and data you throw at it for the locale you want it in:
 
 ```javascript
-import MessageFormatter from '@ultraq/icu-message-formatter';
+import {MessageFormatter} from '@ultraq/icu-message-formatter';
 import {toCurrencyString} from 'my-custom-currency-library';
 
 let formatter = new MessageFormatter({
@@ -62,7 +62,7 @@ API
 ### MessageFormatter
 
 ```javascript
-import MessageFormatter from '@ultraq/icu-message-formatter';
+import {MessageFormatter} from '@ultraq/icu-message-formatter';
 ```
 
 The main class for formatting messages.
@@ -98,7 +98,7 @@ currently-registered type handlers.
 ### pluralTypeHandler
 
 ```javascript
-import pluralTypeHandler from '@ultraq/icu-message-formatter/lib/pluralTypeHandler';
+import {pluralTypeHandler} from '@ultraq/icu-message-formatter';
 ```
 
 Handler for `plural` statements within ICU message syntax strings.  See
@@ -113,7 +113,7 @@ fallback behaviour will be invoked (which is to emit the value of `key`).
 #### selectTypeHandler
 
 ```javascript
-import selectTypeHandler from '@ultraqicu-message-formatter/lib/selectTypeHandler';
+import {selectTypeHandler} from '@ultraq/icu-message-formatter';
 ```
 
 Handler for `select` statements within ICU message syntax strings.  See
@@ -126,7 +126,7 @@ https://formatjs.io/docs/icu-syntax#select-format for more details on how the
 #### findClosingBracket(string, fromIndex)
 
 ```javascript
-import {findClosingBracket} from '@ultraq/icu-message-formatter/lib/utilities';
+import {findClosingBracket} from '@ultraq/icu-message-formatter';
 ```
 
 Finds the index of the next closing curly bracket, `}`, including in strings
@@ -139,7 +139,7 @@ bracket, or -1 if no closing bracket could be found.
 #### splitFormattedArgument(block)
 
 ```javascript
-import {splitFormattedArgument} from '@ultraq/icu-message-formatter/lib/utilities';
+import {splitFormattedArgument} from '@ultraq/icu-message-formatter';
 ```
 
 Split a `{key, type, format}` block into those 3 parts, taking into account

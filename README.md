@@ -92,6 +92,18 @@ currently-registered type handlers.
  - **values**: object of placeholder data to fill out the message
  - **locale**: the locale to use for formatting
 
+#### process(message, values = {}, locale)
+
+Process an ICU message syntax string using `values` for placeholder data and any
+currently-registered type handlers.  The result of this method is an array of
+the component parts after they have been processed in turn by their own type
+handlers.  This raw output is useful for other renderers, eg: React where
+components can be used instead of being forced to return raw strings.
+
+ - **message**: the ICU message string to format
+ - **values**: object of placeholder data to fill out the message
+ - **locale**: the locale to use for formatting
+
 
 ### Type handlers available in this library
 

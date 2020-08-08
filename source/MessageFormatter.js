@@ -16,6 +16,7 @@
 
 import {findClosingBracket, splitFormattedArgument} from './utilities.js';
 
+import {flatten} from '@ultraq/array-utils';
 import {memoize} from '@ultraq/function-utils';
 
 /**
@@ -50,37 +51,62 @@ export default class MessageFormatter {
 	 */
 	format = memoize((message, values = {}, locale) => {
 
+		return flatten(this.process(message, values, locale)).join('');
+	})
+
+	/**
+	 * Process an ICU message syntax string using `values` for placeholder data
+	 * and any currently-registered type handlers.  The result of this method is
+	 * an array of the component parts after they have been processed in turn by
+	 * their own type handlers.  This raw output is useful for other renderers,
+	 * eg: React where components can be used instead of being forced to return
+	 * raw strings.
+	 * 
+	 * This method is used by {@link MessageFormatter#format} where it acts as a
+	 * string renderer.
+	 * 
+	 * @param {String} message
+	 * @param {Object} values
+	 * @param {String} locale
+	 * @return {Array}
+	 */
+	process(message, values, locale) {
+
 		if (!message) {
-			return '';
+			return [];
 		}
 
-		let result = message;
-
-		let blockStartIndex = result.indexOf('{');
-		while (blockStartIndex !== -1) {
-			let blockEndIndex = findClosingBracket(result, blockStartIndex);
+		let blockStartIndex = message.indexOf('{');
+		if (blockStartIndex !== -1) {
+			let blockEndIndex = findClosingBracket(message, blockStartIndex);
 			if (blockEndIndex !== -1) {
-				let block = result.substring(blockStartIndex, blockEndIndex + 1);
+				let block = message.substring(blockStartIndex, blockEndIndex + 1);
 				if (block) {
+					let result = [];
+					let head = message.substring(0, blockStartIndex);
+					if (head !== null && head !== undefined && head !== '') {
+						result.push(head);
+					}
 					let [key, type, format] = splitFormattedArgument(block);
-					let value = values[key];
-					if (value === null || value === undefined) {
-						value = '';
+					let body = values[key];
+					if (body === null || body === undefined) {
+						body = '';
 					}
 					let typeHandler = type && this.typeHandlers[type];
-					result = result.replace(block, typeHandler ?
-						typeHandler(value, format, values, locale, this.format) :
-						value
-					);
+					result.push(typeHandler ?
+						typeHandler(body, format, values, locale, this.process.bind(this)) :
+						body);
+					let tail = message.substring(blockEndIndex + 1);
+					if (tail !== null && tail !== undefined && tail !== '') {
+						result.push(this.process(tail, values, locale));
+					}
+					return result;
 				}
 			}
 			else {
 				throw new Error(`Unbalanced curly braces in string: "${message}"`);
 			}
-
-			blockStartIndex = result.indexOf('{');
 		}
-
-		return result;
-	})
+		return [message];
+	}
 }

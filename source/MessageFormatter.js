@@ -46,7 +46,7 @@ export default class MessageFormatter {
 	 * 
 	 * @param {String} message
 	 * @param {Object} [values={}]
-	 * @param {String} locale
+	 * @param {String} [locale]
 	 * @return {String}
 	 */
 	format = memoize((message, values = {}, locale) => {
@@ -66,11 +66,11 @@ export default class MessageFormatter {
 	 * string renderer.
 	 * 
 	 * @param {String} message
-	 * @param {Object} values
-	 * @param {String} locale
+	 * @param {Object} [values={}]
+	 * @param {String} [locale]
 	 * @return {Array}
 	 */
-	process(message, values, locale) {
+	process(message, values = {}, locale) {
 
 		if (!message) {
 			return [];

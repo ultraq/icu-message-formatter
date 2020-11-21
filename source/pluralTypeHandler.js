@@ -16,6 +16,8 @@
 
 import {findClosingBracket} from './utilities.js';
 
+let keyCounter = 0;
+
 // All the special keywords that can be used in `plural` blocks for the various
 // branches.
 const ONE   = 'one';
@@ -56,7 +58,11 @@ export default function pluralTypeHandler(value, matches = '', values, locale, f
 				// Would have loved to use .includes, but IE11 support and don't want to
 				// force consumers into including a polyfill
 				if (branch.indexOf('#') !== -1) {
-					branch = branch.replace('#', format(`{key, number}`, {key: value}, locale));
+					let keyParam = keyCounter++;
+					return format(branch.replace('#', `{${keyParam}, number}`), {
+						...values,
+						[keyParam]: value
+					}, locale);
 				}
 
 				return format(branch, values, locale);

@@ -58,7 +58,7 @@ export default function pluralTypeHandler(value, matches = '', values, locale, f
 				// Would have loved to use .includes, but IE11 support and don't want to
 				// force consumers into including a polyfill
 				if (branch.indexOf('#') !== -1) {
-					let keyParam = keyCounter++;
+					let keyParam = `__hashToken${keyCounter++}`;
 					return format(branch.replace('#', `{${keyParam}, number}`), {
 						...values,
 						[keyParam]: value

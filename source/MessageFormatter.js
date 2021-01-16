@@ -84,7 +84,7 @@ export default class MessageFormatter {
 				if (block) {
 					let result = [];
 					let head = message.substring(0, blockStartIndex);
-					if (head !== null && head !== undefined && head !== '') {
+					if (head) {
 						result.push(head);
 					}
 					let [key, type, format] = splitFormattedArgument(block);
@@ -97,7 +97,7 @@ export default class MessageFormatter {
 						typeHandler(body, format, values, locale, this.process.bind(this)) :
 						body);
 					let tail = message.substring(blockEndIndex + 1);
-					if (tail !== null && tail !== undefined && tail !== '') {
+					if (tail) {
 						result.push(this.process(tail, values, locale));
 					}
 					return result;

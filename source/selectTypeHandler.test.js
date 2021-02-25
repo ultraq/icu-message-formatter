@@ -31,12 +31,12 @@ describe('selectTypeHandler', function() {
 		let message = '{mood, select, happy {Good} sad {bad} other {Ambivalent}} morning';
 
 		test('Explicit branch', function() {
-			let result = formatter.format(message, { mood: 'happy' }, 'en-NZ');
+			let result = formatter.format(message, 'en-NZ', { mood: 'happy' });
 			expect(result).toBe('Good morning');
 		});
 
 		test('Fallback branch', function() {
-			let result = formatter.format(message, { mood: 'angry' }, 'en-NZ');
+			let result = formatter.format(message, 'en-NZ', { mood: 'angry' });
 			expect(result).toBe('Ambivalent morning');
 		});
 	});
@@ -45,7 +45,7 @@ describe('selectTypeHandler', function() {
 
 		test('No matching branch', function() {
 			let message = 'I am feeling {mood, select, happy {good}}';
-			let result = formatter.format(message, { mood: 'ambivalent' }, 'en-NZ');
+			let result = formatter.format(message, 'en-NZ', { mood: 'ambivalent' });
 			expect(result).toBe('I am feeling ambivalent');
 		});
 	});

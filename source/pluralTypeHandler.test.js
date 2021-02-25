@@ -30,12 +30,12 @@ describe('pluralTypeHandler', function() {
 		const message = 'Stop thinking about {value, plural, one {that donut} other {those donuts}}';
 
 		test('one', function() {
-			let result = formatter.format(message, { value: 1 }, 'en-NZ');
+			let result = formatter.format(message, 'en-NZ', { value: 1 });
 			expect(result).toBe('Stop thinking about that donut');
 		});
 
 		test('other', function() {
-			let result = formatter.format(message, { value: 2 }, 'en-NZ');
+			let result = formatter.format(message, 'en-NZ', { value: 2 });
 			expect(result).toBe('Stop thinking about those donuts');
 		});
 	});
@@ -47,13 +47,13 @@ describe('pluralTypeHandler', function() {
 
 		test('No matching branch', function() {
 			let message = 'I have {cows, plural, one {a cow} two {some cows}}';
-			let result = formatter.format(message, { cows: 7 }, 'en-NZ');
+			let result = formatter.format(message, 'en-NZ', { cows: 7 });
 			expect(result).toBe('I have 7');
 		});
 
 		test('Keyword without branch', function() {
 			let message = 'I have {cows, plural, other}';
-			let result = formatter.format(message, { cows: 7 }, 'en-NZ');
+			let result = formatter.format(message, 'en-NZ', { cows: 7 });
 			expect(result).toBe('I have 7');
 		});
 	});
@@ -65,7 +65,7 @@ describe('pluralTypeHandler', function() {
 			let formatter = new MessageFormatter({
 				plural: pluralTypeHandler
 			});
-			let result = formatter.format(message, { days: 7 }, 'en-NZ');
+			let result = formatter.format(message, 'en-NZ', { days: 7 });
 			expect(result).toBe('7 days...');
 		});
 
@@ -75,7 +75,7 @@ describe('pluralTypeHandler', function() {
 				number: numberTypeHandler,
 				plural: pluralTypeHandler
 			});
-			let result = formatter.format(message, { days: 1000 }, 'en-NZ');
+			let result = formatter.format(message, 'en-NZ', { days: 1000 });
 			expect(result).toBe('1,000 days...');
 		});
 	});

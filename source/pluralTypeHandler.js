@@ -32,12 +32,12 @@ const OTHER = 'other';
  * 
  * @param {Number|String} value
  * @param {String} matches
- * @param {String} values
  * @param {String} locale
+ * @param {String} values
  * @param {Function} format
  * @return {String}
  */
-export default function pluralTypeHandler(value, matches = '', values, locale, format) {
+export default function pluralTypeHandler(value, matches = '', locale, values, format) {
 
 	let keyword;
 	switch (value) {
@@ -59,13 +59,13 @@ export default function pluralTypeHandler(value, matches = '', values, locale, f
 				// force consumers into including a polyfill
 				if (branch.indexOf('#') !== -1) {
 					let keyParam = `__hashToken${keyCounter++}`;
-					return format(branch.replace('#', `{${keyParam}, number}`), {
+					return format(branch.replace('#', `{${keyParam}, number}`), locale, {
 						...values,
 						[keyParam]: value
-					}, locale);
+					});
 				}
 
-				return format(branch, values, locale);
+				return format(branch, locale, values);
 			}
 		}
 	}

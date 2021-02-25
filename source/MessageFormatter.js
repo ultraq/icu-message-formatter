@@ -45,13 +45,13 @@ export default class MessageFormatter {
 	 * and any currently-registered type handlers.
 	 * 
 	 * @param {String} message
+	 * @param {String} locale
 	 * @param {Object} [values={}]
-	 * @param {String} [locale]
 	 * @return {String}
 	 */
-	format = memoize((message, values = {}, locale) => {
+	format = memoize((message, locale, values = {}) => {
 
-		return flatten(this.process(message, values, locale)).join('');
+		return flatten(this.process(message, locale, values)).join('');
 	})
 
 	/**
@@ -66,11 +66,11 @@ export default class MessageFormatter {
 	 * string renderer.
 	 * 
 	 * @param {String} message
+	 * @param {String} locale
 	 * @param {Object} [values={}]
-	 * @param {String} [locale]
 	 * @return {Array}
 	 */
-	process(message, values = {}, locale) {
+	process(message, locale, values = {}) {
 
 		if (!message) {
 			return [];
@@ -94,11 +94,11 @@ export default class MessageFormatter {
 					}
 					let typeHandler = type && this.typeHandlers[type];
 					result.push(typeHandler ?
-						typeHandler(body, format, values, locale, this.process.bind(this)) :
+						typeHandler(body, format, locale, values, this.process.bind(this)) :
 						body);
 					let tail = message.substring(blockEndIndex + 1);
 					if (tail) {
-						result.push(this.process(tail, values, locale));
+						result.push(this.process(tail, locale, values));
 					}
 					return result;
 				}

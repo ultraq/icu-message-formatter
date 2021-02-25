@@ -27,9 +27,9 @@ describe('MessageFormatter', function() {
 
 		test('Basic string replacement', function() {
 			let formatter = new MessageFormatter();
-			let message = formatter.format('Hey {name}, that\'s gonna cost you!', {
+			let message = formatter.format('Hey {name}, that\'s gonna cost you!', 'en-NZ', {
 				name: 'Emanuel'
-			}, 'en-NZ');
+			});
 			expect(message).toBe('Hey Emanuel, that\'s gonna cost you!');
 		});
 
@@ -45,15 +45,15 @@ describe('MessageFormatter', function() {
 			let locale = 'en-NZ';
 			let message = formatter.format(
 				'Hit me up {at, select, date {at {specificDate, date}} asap {as soon as possible}}',
-				values,
-				'en-NZ'
+				'en-NZ',
+				values
 			);
 
 			expect(selectSpy).toHaveBeenCalledWith(
 				values.at,
 				'date {at {specificDate, date}} asap {as soon as possible}',
-				values,
 				locale,
+				values,
 				expect.any(Function)
 			);
 			expect(message).toBe('Hit me up as soon as possible');
@@ -61,9 +61,9 @@ describe('MessageFormatter', function() {
 
 		test('Replaces multiple instances of the same parameter', function() {
 			let formatter = new MessageFormatter();
-			let message = formatter.format('Hello {name} {name}!', {
+			let message = formatter.format('Hello {name} {name}!', 'en-NZ', {
 				name: 'Emanuel'
-			}, 'en-NZ');
+			});
 			expect(message).toBe('Hello Emanuel Emanuel!');
 		});
 
@@ -78,7 +78,7 @@ describe('MessageFormatter', function() {
 		test('Lets falsey values in parameters through', function() {
 			let formatter = new MessageFormatter();
 			[0, false].forEach(value => {
-				let message = formatter.format(`{param}`, {
+				let message = formatter.format(`{param}`, 'en-NZ', {
 					param: value
 				});
 				expect(message).toBe(value.toString());

@@ -27,12 +27,12 @@ const OTHER = 'other';
  * 
  * @param {String} value
  * @param {String} matches
- * @param {String} values
  * @param {String} locale
+ * @param {String} values
  * @param {Function} format
  * @return {String}
  */
-export default function selectTypeHandler(value, matches = '', values, locale, format) {
+export default function selectTypeHandler(value, matches = '', locale, values, format) {
 
 	// Use the value branch or the 'other' branch
 	let keyword = value;
@@ -49,7 +49,7 @@ export default function selectTypeHandler(value, matches = '', values, locale, f
 		let branchEndIndex = findClosingBracket(matches, branchStartIndex);
 		if (branchEndIndex !== -1) {
 			let branch = matches.substring(branchStartIndex, branchEndIndex);
-			return format(branch, values, locale);
+			return format(branch, locale, values);
 		}
 	}
 

@@ -42,16 +42,16 @@ import {MessageFormatter} from '@ultraq/icu-message-formatter';
 import {toCurrencyString} from 'my-custom-currency-library';
 
 let formatter = new MessageFormatter({
-  currency: ({value, currency}, options, values, locale) => toCurrencyString(value, currency, locale)
+  currency: ({value, currency}, options, locale, values) => toCurrencyString(value, currency, locale)
 });
 
-let message = formatter.format('Hey {name}, that\'s gonna cost you {amount, currency}!', {
+let message = formatter.format('Hey {name}, that\'s gonna cost you {amount, currency}!', 'en-NZ', {
   name: 'Emanuel',
   amount: {
     value: 2,
     currency: 'GBP'
   }
-}, 'en-NZ');
+});
 
 console.log(message); // "Hey Emanuel, that's gonna cost you £2.00!"
 ```
@@ -79,21 +79,21 @@ register.
    passed 5 parameters:
     - the object which matched the key of the block being processed
     - any format options associated with the block being processed
-    - the object of placeholder data given to the original `format` call
     - the locale to use for formatting
+    - the object of placeholder data given to the original `format` call
     - and the `format` function itself (see below) so that sub-messages can be
       processed by type handlers
 
-#### format(message, values = {}, locale)
+#### format(message, locale, values = {})
 
 Formats an ICU message syntax string using `values` for placeholder data and any
 currently-registered type handlers.
 
  - **message**: the ICU message string to format
- - **values**: object of placeholder data to fill out the message
  - **locale**: the locale to use for formatting
+ - **values**: object of placeholder data to fill out the message
 
-#### process(message, values = {}, locale)
+#### process(message, locale, values = {})
 
 Process an ICU message syntax string using `values` for placeholder data and any
 currently-registered type handlers.  The result of this method is an array of
@@ -102,8 +102,8 @@ handlers.  This raw output is useful for other renderers, eg: React where
 components can be used instead of being forced to return raw strings.
 
  - **message**: the ICU message string to format
- - **values**: object of placeholder data to fill out the message
  - **locale**: the locale to use for formatting
+ - **values**: object of placeholder data to fill out the message
 
 
 ### Type handlers available in this library

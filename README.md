@@ -2,8 +2,8 @@
 ICU Message Formatter
 =====================
 
-[![Build Status](https://travis-ci.com/ultraq/icu-message-formatter.svg?branch=master)](https://travis-ci.com/ultraq/icu-message-formatter)
-[![Coverage Status](https://coveralls.io/repos/github/ultraq/icu-message-formatter/badge.svg?branch=master)](https://coveralls.io/github/ultraq/icu-message-formatter?branch=master)
+[![Build Status](https://travis-ci.com/ultraq/icu-message-formatter.svg?branch=main)](https://travis-ci.com/ultraq/icu-message-formatter)
+[![Coverage Status](https://coveralls.io/repos/github/ultraq/icu-message-formatter/badge.svg?branch=main)](https://coveralls.io/github/ultraq/icu-message-formatter?branch=main)
 [![npm](https://img.shields.io/npm/v/@ultraq/icu-message-formatter.svg?maxAge=3600)](https://www.npmjs.com/package/@ultraq/icu-message-formatter)
 [![Bundlephobia minified size](https://img.shields.io/bundlephobia/min/@ultraq/icu-message-formatter)](https://bundlephobia.com/result?p=@ultraq/icu-message-formatter)
 

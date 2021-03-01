@@ -30,13 +30,15 @@ export default class MessageFormatter {
 	 * Creates a new formatter that can work using any of the custom type handlers
 	 * you register.
 	 * 
+	 * @param {String} locale
 	 * @param {Object} [typeHandlers={}]
 	 *   Optional object where the keys are the names of the types to register,
 	 *   their values being the functions that will return a nicely formatted
 	 *   string for the data and locale they are given.
 	 */
-	constructor(typeHandlers = {}) {
+	constructor(locale, typeHandlers = {}) {
 
+		this.locale = locale;
 		this.typeHandlers = typeHandlers;
 	}
 
@@ -45,13 +47,12 @@ export default class MessageFormatter {
 	 * and any currently-registered type handlers.
 	 * 
 	 * @param {String} message
-	 * @param {String} locale
 	 * @param {Object} [values={}]
 	 * @return {String}
 	 */
-	format = memoize((message, locale, values = {}) => {
+	format = memoize((message, values = {}) => {
 
-		return flatten(this.process(message, locale, values)).join('');
+		return flatten(this.process(message, values)).join('');
 	})
 
 	/**
@@ -66,11 +67,10 @@ export default class MessageFormatter {
 	 * string renderer.
 	 * 
 	 * @param {String} message
-	 * @param {String} locale
 	 * @param {Object} [values={}]
 	 * @return {Array}
 	 */
-	process(message, locale, values = {}) {
+	process(message, values = {}) {
 
 		if (!message) {
 			return [];
@@ -94,11 +94,11 @@ export default class MessageFormatter {
 					}
 					let typeHandler = type && this.typeHandlers[type];
 					result.push(typeHandler ?
-						typeHandler(body, format, locale, values, this.process.bind(this)) :
+						typeHandler(body, format, this.locale, values, this.process.bind(this)) :
 						body);
 					let tail = message.substring(blockEndIndex + 1);
 					if (tail) {
-						result.push(this.process(tail, locale, values));
+						result.push(this.process(tail, values));
 					}
 					return result;
 				}

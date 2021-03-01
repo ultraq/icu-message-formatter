@@ -49,7 +49,7 @@ export default function selectTypeHandler(value, matches = '', locale, values, f
 		let branchEndIndex = findClosingBracket(matches, branchStartIndex);
 		if (branchEndIndex !== -1) {
 			let branch = matches.substring(branchStartIndex, branchEndIndex);
-			return format(branch, locale, values);
+			return format(branch, values);
 		}
 	}
 

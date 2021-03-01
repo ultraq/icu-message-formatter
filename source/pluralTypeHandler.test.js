@@ -24,36 +24,36 @@ import pluralTypeHandler from './pluralTypeHandler.js';
 describe('pluralTypeHandler', function() {
 
 	describe('Branch selection', function() {
-		const formatter = new MessageFormatter({
+		const formatter = new MessageFormatter('en-NZ', {
 			plural: pluralTypeHandler
 		});
 		const message = 'Stop thinking about {value, plural, one {that donut} other {those donuts}}';
 
 		test('one', function() {
-			let result = formatter.format(message, 'en-NZ', { value: 1 });
+			let result = formatter.format(message, { value: 1 });
 			expect(result).toBe('Stop thinking about that donut');
 		});
 
 		test('other', function() {
-			let result = formatter.format(message, 'en-NZ', { value: 2 });
+			let result = formatter.format(message, { value: 2 });
 			expect(result).toBe('Stop thinking about those donuts');
 		});
 	});
 
 	describe('Fallback of emitting the value', function() {
-		const formatter = new MessageFormatter({
+		const formatter = new MessageFormatter('en-NZ', {
 			plural: pluralTypeHandler
 		});
 
 		test('No matching branch', function() {
 			let message = 'I have {cows, plural, one {a cow} two {some cows}}';
-			let result = formatter.format(message, 'en-NZ', { cows: 7 });
+			let result = formatter.format(message, { cows: 7 });
 			expect(result).toBe('I have 7');
 		});
 
 		test('Keyword without branch', function() {
 			let message = 'I have {cows, plural, other}';
-			let result = formatter.format(message, 'en-NZ', { cows: 7 });
+			let result = formatter.format(message, { cows: 7 });
 			expect(result).toBe('I have 7');
 		});
 	});
@@ -62,20 +62,20 @@ describe('pluralTypeHandler', function() {
 		const message = '{days, plural, one {# day} other {# days}}...';
 
 		test('Emit value without a registered number handler', function() {
-			let formatter = new MessageFormatter({
+			let formatter = new MessageFormatter('en-NZ', {
 				plural: pluralTypeHandler
 			});
-			let result = formatter.format(message, 'en-NZ', { days: 7 });
+			let result = formatter.format(message, { days: 7 });
 			expect(result).toBe('7 days...');
 		});
 
 		test('Use the registered number handler', function() {
 			let numberTypeHandler = jest.fn((value, options, values, locale) => new Intl.NumberFormat(locale).format(value));
-			let formatter = new MessageFormatter({
+			let formatter = new MessageFormatter('en-NZ', {
 				number: numberTypeHandler,
 				plural: pluralTypeHandler
 			});
-			let result = formatter.format(message, 'en-NZ', { days: 1000 });
+			let result = formatter.format(message, { days: 1000 });
 			expect(result).toBe('1,000 days...');
 		});
 	});

@@ -59,13 +59,13 @@ export default function pluralTypeHandler(value, matches = '', locale, values, f
 				// force consumers into including a polyfill
 				if (branch.indexOf('#') !== -1) {
 					let keyParam = `__hashToken${keyCounter++}`;
-					return format(branch.replace('#', `{${keyParam}, number}`), locale, {
+					return format(branch.replace('#', `{${keyParam}, number}`), {
 						...values,
 						[keyParam]: value
 					});
 				}
 
-				return format(branch, locale, values);
+				return format(branch, values);
 			}
 		}
 	}

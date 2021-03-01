@@ -23,7 +23,7 @@ import selectTypeHandler from './selectTypeHandler.js';
  */
 describe('selectTypeHandler', function() {
 
-	const formatter = new MessageFormatter({
+	const formatter = new MessageFormatter('en-NZ', {
 		select: selectTypeHandler
 	});
 
@@ -31,12 +31,12 @@ describe('selectTypeHandler', function() {
 		let message = '{mood, select, happy {Good} sad {bad} other {Ambivalent}} morning';
 
 		test('Explicit branch', function() {
-			let result = formatter.format(message, 'en-NZ', { mood: 'happy' });
+			let result = formatter.format(message, { mood: 'happy' });
 			expect(result).toBe('Good morning');
 		});
 
 		test('Fallback branch', function() {
-			let result = formatter.format(message, 'en-NZ', { mood: 'angry' });
+			let result = formatter.format(message, { mood: 'angry' });
 			expect(result).toBe('Ambivalent morning');
 		});
 	});
@@ -45,7 +45,7 @@ describe('selectTypeHandler', function() {
 
 		test('No matching branch', function() {
 			let message = 'I am feeling {mood, select, happy {good}}';
-			let result = formatter.format(message, 'en-NZ', { mood: 'ambivalent' });
+			let result = formatter.format(message, { mood: 'ambivalent' });
 			expect(result).toBe('I am feeling ambivalent');
 		});
 	});

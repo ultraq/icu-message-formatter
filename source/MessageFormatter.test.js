@@ -26,26 +26,25 @@ describe('MessageFormatter', function() {
 	describe('#format', function() {
 
 		test('Basic string replacement', function() {
-			let formatter = new MessageFormatter();
-			let message = formatter.format('Hey {name}, that\'s gonna cost you!', 'en-NZ', {
+			let formatter = new MessageFormatter('en-NZ');
+			let message = formatter.format('Hey {name}, that\'s gonna cost you!', {
 				name: 'Emanuel'
 			});
 			expect(message).toBe('Hey Emanuel, that\'s gonna cost you!');
 		});
 
 		test('Options finding when containing nested types', function() {
+			let locale = 'en-NZ';
 			let selectSpy = jest.fn(selectTypeHandler);
-			let formatter = new MessageFormatter({
+			let formatter = new MessageFormatter(locale, {
 				select: selectSpy
 			});
 
 			let values = {
 				at: 'asap'
 			};
-			let locale = 'en-NZ';
 			let message = formatter.format(
 				'Hit me up {at, select, date {at {specificDate, date}} asap {as soon as possible}}',
-				'en-NZ',
 				values
 			);
 
@@ -60,15 +59,15 @@ describe('MessageFormatter', function() {
 		});
 
 		test('Replaces multiple instances of the same parameter', function() {
-			let formatter = new MessageFormatter();
-			let message = formatter.format('Hello {name} {name}!', 'en-NZ', {
+			let formatter = new MessageFormatter('en-NZ');
+			let message = formatter.format('Hello {name} {name}!', {
 				name: 'Emanuel'
 			});
 			expect(message).toBe('Hello Emanuel Emanuel!');
 		});
 
 		test('Returns empty strings for null/undefined message values', function() {
-			let formatter = new MessageFormatter();
+			let formatter = new MessageFormatter('en-NZ');
 			[null, undefined].forEach(value => {
 				let message = formatter.format(value);
 				expect(message).toBe('');
@@ -76,9 +75,9 @@ describe('MessageFormatter', function() {
 		});
 
 		test('Lets falsey values in parameters through', function() {
-			let formatter = new MessageFormatter();
+			let formatter = new MessageFormatter('en-NZ');
 			[0, false].forEach(value => {
-				let message = formatter.format(`{param}`, 'en-NZ', {
+				let message = formatter.format(`{param}`, {
 					param: value
 				});
 				expect(message).toBe(value.toString());

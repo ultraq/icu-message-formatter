@@ -15,8 +15,9 @@
  */
 
 /* eslint-env jest */
-import MessageFormatter from './MessageFormatter.js';
-import selectTypeHandler from './selectTypeHandler.js';
+import MessageFormatter from './MessageFormatter';
+import pluralTypeHandler from './pluralTypeHandler';
+import selectTypeHandler from './selectTypeHandler';
 
 /**
  * Tests for the ICU message formatter.
@@ -82,6 +83,71 @@ describe('MessageFormatter', function() {
 				});
 				expect(message).toBe(value.toString());
 			});
+		});
+
+		test('Plural inside select', function () {
+			let formatter = new MessageFormatter('en-NZ', {
+				plural: pluralTypeHandler,
+				select: selectTypeHandler
+			});
+			let message = `{gender_of_host, select,
+				female {{num_guests, plural,
+					=0    {{host} does not give a party.}
+					=1    {{host} invites {guest} to her party.}
+					=2    {{host} invites {guest} and one other person to her party.}
+					other {{host} invites {guest} and # other people to her party.}
+				}}
+				male {{num_guests, plural,
+					=0    {{host} does not give a party.}
+					=1    {{host} invites {guest} to his party.}
+					=2    {{host} invites {guest} and one other person to his party.}
+					other {{host} invites {guest} and # other people to his party.}
+				}}
+				other {{num_guests, plural,
+					=0    {{host} does not give a party.}
+					=1    {{host} invites {guest} to their party.}
+					=2    {{host} invites {guest} and one other person to their party.}
+					other {{host} invites {guest} and # other people to their party.}
+				}}
+			}`;
+
+			expect(formatter.format(message, { 'gender_of_host': 'male', host: 'John', 'num_guests': 115, guest: 'you' })).toBe('John invites you and 115 other people to his party.');
+			expect(formatter.format(message, { 'gender_of_host': 'female', host: 'John', 'num_guests': 1, guest: 'you' })).toBe('John invites you to her party.');
+			expect(formatter.format(message, { 'gender_of_host': 'other', host: 'John', 'num_guests': 2, guest: 'you' })).toBe('John invites you and one other person to their party.');
+			expect(formatter.format(message, { 'gender_of_host': 'other', host: 'John', 'num_guests': 12345, guest: 'you' })).toBe('John invites you and 12345 other people to their party.');
+		});
+
+		test('Select inside plural', function () {
+			let formatter = new MessageFormatter('en-NZ', {
+				plural: pluralTypeHandler,
+				select: selectTypeHandler
+			});
+
+			let message = `{num_guests, plural,
+				=0    {{host} does not give a party.}
+				=1    {{gender_of_host, select,
+					female {{host} invites {guest} to her party.}
+					male   {{host} invites {guest} to his party.}
+					other  {{host} invites {guest} to their party.}
+				}}
+				=2    {{gender_of_host, select,
+					female {{host} invites {guest} and one other person to her party.}
+					male   {{host} invites {guest} and one other person to his party.}
+					other  {{host} invites {guest} and one other person to their party.}
+				}}
+				other {{gender_of_host, select,
+					female {{host} invites {guest} and # other people to her party.}
+					male   {{host} invites {guest} and # other people to his party.}
+					other  {{host} invites {guest} and # other people to their party.}
+				}}
+			}`;
+
+			expect(formatter.format(message, { 'gender_of_host': 'female', host: 'John', 'num_guests': 1, guest: 'you' })).toBe('John invites you to her party.');
+			expect(formatter.format(message, { 'gender_of_host': 'other', host: 'John', 'num_guests': 2, guest: 'you' })).toBe('John invites you and one other person to their party.');
+
+			// number sign only works in the immediately corresponding layer! Can't use a nested one.
+			expect(formatter.format(message, { 'gender_of_host': 'male', host: 'John', 'num_guests': 115, guest: 'you' })).toBe('John invites you and # other people to his party.');
+			expect(formatter.format(message, { 'gender_of_host': 'other', host: 'John', 'num_guests': 12345, guest: 'you' })).toBe('John invites you and # other people to their party.');
 		});
 	});
 });

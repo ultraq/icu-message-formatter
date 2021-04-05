@@ -85,7 +85,7 @@ describe('MessageFormatter', function() {
 			});
 		});
 
-		test('Plural inside select', function () {
+		test('Plural inside select', function() {
 			let formatter = new MessageFormatter('en-NZ', {
 				plural: pluralTypeHandler,
 				select: selectTypeHandler
@@ -117,7 +117,7 @@ describe('MessageFormatter', function() {
 			expect(formatter.format(message, { 'gender_of_host': 'other', host: 'John', 'num_guests': 12345, guest: 'you' })).toBe('John invites you and 12345 other people to their party.');
 		});
 
-		test('Select inside plural', function () {
+		test('Select inside plural', function() {
 			let formatter = new MessageFormatter('en-NZ', {
 				plural: pluralTypeHandler,
 				select: selectTypeHandler

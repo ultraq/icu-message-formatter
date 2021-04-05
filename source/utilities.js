@@ -59,7 +59,7 @@ export function parseCases(string) {
 				const branchEndIndex = findClosingBracket(string, i);
 
 				if (branchEndIndex === -1) {
-					throw new Error(`Unbalanced curly braces in string: "${message}"`);
+					throw new Error(`Unbalanced curly braces in string: "${string}"`);
 				}
 
 				const caseBody = string.slice(i + 1, branchEndIndex);  // Don't include the braces
@@ -67,7 +67,8 @@ export function parseCases(string) {
 
 				i = branchEndIndex; // Will be moved up where needed at end of loop.
 				latestTerm = null;
-			} else {
+			}
+			else {
 				if (latestTerm) {
 					args.push(latestTerm);
 					latestTerm = null;

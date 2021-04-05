@@ -47,7 +47,7 @@ describe('pluralTypeHandler', function() {
 			expect(result).toBe('Stop thinking about those donuts');
 		});
 
-		test('other fallback', function () {
+		test('other fallback', function() {
 			let result = formatter.format(message);
 			expect(result).toBe('Stop thinking about those donuts');
 		});
@@ -92,7 +92,7 @@ describe('pluralTypeHandler', function() {
 			expect(result).toBe('1,000 days...');
 		});
 
-		test('Number signs for nested plurals doesnt apply top level count to inner sign', function () {
+		test('Number signs for nested plurals doesnt apply top level count to inner sign', function() {
 			let formatter = new MessageFormatter('en-NZ', {
 				plural: pluralTypeHandler
 			});
@@ -105,8 +105,8 @@ describe('pluralTypeHandler', function() {
 		});
 	});
 
-	describe('Empty matches', function () {
-		test('No matching branch', function () {
+	describe('Empty matches', function() {
+		test('No matching branch', function() {
 			let result = pluralTypeHandler('some value');
 			expect(result).toBe('some value');
 		});

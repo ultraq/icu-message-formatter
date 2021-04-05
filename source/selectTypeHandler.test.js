@@ -50,8 +50,8 @@ describe('selectTypeHandler', function() {
 		});
 	});
 
-	describe('Empty matches', function () {
-		test('No matching branch', function () {
+	describe('Empty matches', function() {
+		test('No matching branch', function() {
 			let result = selectTypeHandler('some value');
 			expect(result).toBe('some value');
 		});

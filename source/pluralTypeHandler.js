@@ -41,7 +41,8 @@ function replaceNumberSign(caseBody, value) {
 			let keyParam = `__hashToken${keyCounter++}`;
 			output += `{${keyParam}, number}`;
 			numberValues[keyParam] = value;
-		} else {
+		}
+		else {
 			output += caseBody[i];
 		}
 
@@ -50,7 +51,7 @@ function replaceNumberSign(caseBody, value) {
 
 		i++;
 	}
-	
+
 	return { caseBody: output, numberValues };
 }
 
@@ -75,7 +76,7 @@ export default function pluralTypeHandler(value, matches = '', locale, values, f
 
 	keywordPossibilities.push(`=${value}`, OTHER);
 
-	const { _args, cases } = parseCases(matches);
+	const { cases } = parseCases(matches);
 
 	for (let i = 0; i < keywordPossibilities.length; i++) {
 		const keyword = keywordPossibilities[i];

@@ -20,90 +20,90 @@ import { parseCases } from './utilities';
 /**
  * Tests for the `parseCases` util.
  */
-describe('parseCases', function () {
-    describe('empty', function () {
-        test('empty string', function () {
-            let result = parseCases('');
-            expect(result.args).toStrictEqual([]);
-            expect(result.cases).toStrictEqual({});
-        });
-    })
+describe('parseCases', function() {
+	describe('empty', function() {
+		test('empty string', function() {
+			let result = parseCases('');
+			expect(result.args).toStrictEqual([]);
+			expect(result.cases).toStrictEqual({});
+		});
+	});
 
-    describe('basic case support', function () {
-        test('single case', function () {
-            let result = parseCases('key {case string!}');
-            expect(result.args).toStrictEqual([]);
-            expect(result.cases).toStrictEqual({key: 'case string!'});
-        });
+	describe('basic case support', function() {
+		test('single case', function() {
+			let result = parseCases('key {case string!}');
+			expect(result.args).toStrictEqual([]);
+			expect(result.cases).toStrictEqual({key: 'case string!'});
+		});
 
-        test('fails if cant close case', function () {
-            expect(() => {
-                let result = parseCases('key1 {{case1}');
-            }).toThrowError();
-        });
+		test('fails if cant close case', function() {
+			expect(() => {
+				parseCases('key1 {{case1}');
+			}).toThrowError();
+		});
 
-        test('multiple cases', function () {
-            let result = parseCases('key1 {case1} key2 {case2} key3 {case3}');
-            expect(result.args).toStrictEqual([]);
-            expect(result.cases).toStrictEqual({ key1: 'case1', key2: 'case2', key3: 'case3' });
-        });
+		test('multiple cases', function() {
+			let result = parseCases('key1 {case1} key2 {case2} key3 {case3}');
+			expect(result.args).toStrictEqual([]);
+			expect(result.cases).toStrictEqual({ key1: 'case1', key2: 'case2', key3: 'case3' });
+		});
 
-        test('multiple cases with symbols', function () {
-            let result = parseCases('=key1 {case1} &key2 {case2} key3 {case3}');
-            expect(result.args).toStrictEqual([]);
-            expect(result.cases).toStrictEqual({ '=key1': 'case1', '&key2': 'case2', key3: 'case3' });
-        });
+		test('multiple cases with symbols', function() {
+			let result = parseCases('=key1 {case1} &key2 {case2} key3 {case3}');
+			expect(result.args).toStrictEqual([]);
+			expect(result.cases).toStrictEqual({ '=key1': 'case1', '&key2': 'case2', key3: 'case3' });
+		});
 
-        test('multiple cases with inconsistent whitespace', function () {
-            let result = parseCases(`key1     {case1}  
+		test('multiple cases with inconsistent whitespace', function() {
+			let result = parseCases(`key1     {case1}  
             
             
     key2 {case2}
                                 key3 {case3}`);
-            expect(result.args).toStrictEqual([]);
-            expect(result.cases).toStrictEqual({ key1: 'case1', key2: 'case2', key3: 'case3' });
-        });
+			expect(result.args).toStrictEqual([]);
+			expect(result.cases).toStrictEqual({ key1: 'case1', key2: 'case2', key3: 'case3' });
+		});
 
-        test('multiple cases with minimal whitespace', function () {
-            let result = parseCases(`key1{case1}key2{case2}key3{case3}`);
-            expect(result.args).toStrictEqual([]);
-            expect(result.cases).toStrictEqual({ key1: 'case1', key2: 'case2', key3: 'case3' });
-        });
+		test('multiple cases with minimal whitespace', function() {
+			let result = parseCases(`key1{case1}key2{case2}key3{case3}`);
+			expect(result.args).toStrictEqual([]);
+			expect(result.cases).toStrictEqual({ key1: 'case1', key2: 'case2', key3: 'case3' });
+		});
 
-        test('multiple cases with complex bodies', function () {
-            let result = parseCases(`key1     {{}{}{}{{{{}}}}}  
+		test('multiple cases with complex bodies', function() {
+			let result = parseCases(`key1     {{}{}{}{{{{}}}}}  
             
             
     key2 {=key1 {case1} &key2 {case2} key3 {case3}}
                                 key3 {}`);
-            expect(result.args).toStrictEqual([]);
-            expect(result.cases).toStrictEqual({ key1: '{}{}{}{{{{}}}}', key2: '=key1 {case1} &key2 {case2} key3 {case3}', key3: '' });
-        });
-    });
+			expect(result.args).toStrictEqual([]);
+			expect(result.cases).toStrictEqual({ key1: '{}{}{}{{{{}}}}', key2: '=key1 {case1} &key2 {case2} key3 {case3}', key3: '' });
+		});
+	});
 
-    describe('basic arg support', function () {
-        test('single arg', function () {
-            let result = parseCases('arg1');
-            expect(result.args).toStrictEqual(['arg1']);
-        });
+	describe('basic arg support', function() {
+		test('single arg', function() {
+			let result = parseCases('arg1');
+			expect(result.args).toStrictEqual(['arg1']);
+		});
 
-        test('multiple args', function () {
-            let result = parseCases('arg1 arg2 arg3');
-            expect(result.args).toStrictEqual(['arg1', 'arg2', 'arg3']);
-        });
+		test('multiple args', function() {
+			let result = parseCases('arg1 arg2 arg3');
+			expect(result.args).toStrictEqual(['arg1', 'arg2', 'arg3']);
+		});
 
-        test('multiple args with inconsistent whitespace', function () {
-            let result = parseCases(`arg1     
+		test('multiple args with inconsistent whitespace', function() {
+			let result = parseCases(`arg1     
             
             
             arg2                    arg3`);
-            expect(result.args).toStrictEqual(['arg1', 'arg2', 'arg3']);
-        });
-    });
+			expect(result.args).toStrictEqual(['arg1', 'arg2', 'arg3']);
+		});
+	});
 
-    describe('arg and cases support', function () {
-        test('multiple args and cases', function () {
-            let result = parseCases(`
+	describe('arg and cases support', function() {
+		test('multiple args and cases', function() {
+			let result = parseCases(`
             offset:1 something:else
               =0    {{host} does not give a party.}
               =1    {{host} invites {guest} to her party.}
@@ -111,13 +111,13 @@ describe('parseCases', function () {
               other {{host} invites {guest} and # other people to her party.}
             `);
 
-            expect(result.args).toStrictEqual(['offset:1', 'something:else']);
-            expect(result.cases).toStrictEqual({
-                '=0': '{host} does not give a party.',
-                '=1': '{host} invites {guest} to her party.',
-                '=2': '{host} invites {guest} and one other person to her party.',
-                other: '{host} invites {guest} and # other people to her party.'
-            });
-        });
-    })
+			expect(result.args).toStrictEqual(['offset:1', 'something:else']);
+			expect(result.cases).toStrictEqual({
+				'=0': '{host} does not give a party.',
+				'=1': '{host} invites {guest} to her party.',
+				'=2': '{host} invites {guest} and one other person to her party.',
+				other: '{host} invites {guest} and # other people to her party.'
+			});
+		});
+	});
 });

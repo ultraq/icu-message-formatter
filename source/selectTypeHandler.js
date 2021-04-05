@@ -33,11 +33,12 @@ const OTHER = 'other';
  * @return {String}
  */
 export default function selectTypeHandler(value, matches = '', locale, values, format) {
-	const { _args, cases } = parseCases(matches);
+	const { cases } = parseCases(matches);
 
 	if (value in cases) {
 		return format(cases[value], values);
-	} else if (OTHER in cases) {
+	}
+	else if (OTHER in cases) {
 		return format(cases[OTHER], values);
 	}
 

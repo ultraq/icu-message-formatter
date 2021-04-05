@@ -27,15 +27,28 @@ describe('pluralTypeHandler', function() {
 		const formatter = new MessageFormatter('en-NZ', {
 			plural: pluralTypeHandler
 		});
-		const message = 'Stop thinking about {value, plural, one {that donut} other {those donuts}}';
+		const message = `Stop thinking about {value, plural,
+			one {that donut}
+			=2 {that delicious duo of donuts}
+			=3 {that triumphant trio of donuts}
+			other {those donuts}
+		}`;
 
-		test('one', function() {
-			let result = formatter.format(message, { value: 1 });
-			expect(result).toBe('Stop thinking about that donut');
+		test('=n', function() {
+			let result = formatter.format(message, { value: 2 });
+			expect(result).toBe('Stop thinking about that delicious duo of donuts');
+
+			result = formatter.format(message, { value: 3 });
+			expect(result).toBe('Stop thinking about that triumphant trio of donuts');
 		});
 
 		test('other', function() {
-			let result = formatter.format(message, { value: 2 });
+			let result = formatter.format(message, { value: 1000 });
+			expect(result).toBe('Stop thinking about those donuts');
+		});
+
+		test('other fallback', function () {
+			let result = formatter.format(message);
 			expect(result).toBe('Stop thinking about those donuts');
 		});
 	});
@@ -59,7 +72,7 @@ describe('pluralTypeHandler', function() {
 	});
 
 	describe('Special # token', function() {
-		const message = '{days, plural, one {# day} other {# days}}...';
+		let message = '{days, plural, one {# day} other {# days}}...';
 
 		test('Emit value without a registered number handler', function() {
 			let formatter = new MessageFormatter('en-NZ', {
@@ -77,6 +90,25 @@ describe('pluralTypeHandler', function() {
 			});
 			let result = formatter.format(message, { days: 1000 });
 			expect(result).toBe('1,000 days...');
+		});
+
+		test('Number signs for nested plurals doesnt apply top level count to inner sign', function () {
+			let formatter = new MessageFormatter('en-NZ', {
+				plural: pluralTypeHandler
+			});
+			let result = formatter.format(`{id, plural,
+				other {ID: # {count, plural,
+						other {Count: #}
+					}}
+			}`, { id: 5, count: 11 });
+			expect(result).toBe('ID: 5 Count: 11');
+		});
+	});
+
+	describe('Empty matches', function () {
+		test('No matching branch', function () {
+			let result = pluralTypeHandler('some value');
+			expect(result).toBe('some value');
 		});
 	});
 });

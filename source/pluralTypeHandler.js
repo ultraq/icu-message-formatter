@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import {findClosingBracket} from './utilities.js';
+import {parseCases} from './utilities.js';
 
 let keyCounter = 0;
 
@@ -22,6 +22,37 @@ let keyCounter = 0;
 // branches.
 const ONE   = 'one';
 const OTHER = 'other';
+
+/**
+ * @private
+ * @param {String} caseBody
+ * @param {Number} value
+ * @return {Object} {caseBody: string, numberValues: object}
+ */
+function replaceNumberSign(caseBody, value) {
+	let i = 0;
+
+	let output = '';
+	let numBraces = 0;
+	const numberValues = {};
+
+	while (i < caseBody.length) {
+		if (caseBody[i] === '#' && !numBraces) {
+			let keyParam = `__hashToken${keyCounter++}`;
+			output += `{${keyParam}, number}`;
+			numberValues[keyParam] = value;
+		} else {
+			output += caseBody[i];
+		}
+
+		if (caseBody[i] === '{') numBraces++;
+		else if (caseBody[i] === '}') numBraces--;
+
+		i++;
+	}
+	
+	return { caseBody: output, numberValues };
+}
 
 /**
  * Handler for `plural` statements within ICU message syntax strings.  Returns
@@ -38,35 +69,19 @@ const OTHER = 'other';
  * @return {String}
  */
 export default function pluralTypeHandler(value, matches = '', locale, values, format) {
+	const keywordPossibilities = [];
 
-	let keyword;
-	switch (value) {
-		case 1:  keyword = ONE;   break;
-		default: keyword = OTHER; break;
-	}
+	if (value === 1) keywordPossibilities.push(ONE);
 
-	// TODO: Support the finding of "=X" branches
+	keywordPossibilities.push(`=${value}`, OTHER);
 
-	let branchKeywordIndex = matches.indexOf(keyword);
-	if (branchKeywordIndex !== -1) {
-		let branchStartIndex = matches.indexOf('{', branchKeywordIndex + keyword.length) + 1;
-		if (branchStartIndex !== -1) {
-			let branchEndIndex = findClosingBracket(matches, branchStartIndex);
-			if (branchEndIndex !== -1) {
-				let branch = matches.substring(branchStartIndex, branchEndIndex);
+	const { _args, cases } = parseCases(matches);
 
-				// Would have loved to use .includes, but IE11 support and don't want to
-				// force consumers into including a polyfill
-				if (branch.indexOf('#') !== -1) {
-					let keyParam = `__hashToken${keyCounter++}`;
-					return format(branch.replace('#', `{${keyParam}, number}`), {
-						...values,
-						[keyParam]: value
-					});
-				}
-
-				return format(branch, values);
-			}
+	for (let i = 0; i < keywordPossibilities.length; i++) {
+		const keyword = keywordPossibilities[i];
+		if (keyword in cases) {
+			const { caseBody, numberValues } = replaceNumberSign(cases[keyword], value);
+			return format(caseBody, Object.assign({}, values, numberValues));
 		}
 	}
 

@@ -15,6 +15,83 @@
  */
 
 /**
+ * Most branch-based type handlers are based around "cases".
+ * For example, `select` and `plural` compare compare a value
+ * to "case keys" to choose a subtranslation.
+ * 
+ * This util splits "matches" portions provided to the aforementioned
+ * handlers into case strings, and extracts any prepended arguments
+ * (for example, `plural` supports an `offset:n` argument used for
+ * populating the magic `#` variable).
+ * 
+ * @param {String} string
+ * @return {Object} The `cases` key points to a map of all cases.
+ *                  The `arguments` key points to a list of prepended arguments.
+ */
+export function parseCases(string) {
+	const isWhitespace = ch => /\s/.test(ch);
+
+	const args = [];
+	const cases = {};
+
+	let currTermStart = 0;
+	let latestTerm = null;
+	let inTerm = false;
+
+	let i = 0;
+	while (i < string.length) {
+		// Term ended
+		if (inTerm && (isWhitespace(string[i]) || string[i] === '{')) {
+			inTerm = false;
+			latestTerm = string.slice(currTermStart, i);
+
+			// We want to process the opening char again so the case will be properly registered.
+			if (string[i] === '{') i--;
+		}
+
+		// New term
+		else if (!inTerm && !isWhitespace(string[i])) {
+			const caseBody = string[i] === '{';
+
+			// If there's a previous term, we can either handle a whole
+			// case, or add that as an argument.
+			if (latestTerm && caseBody) {
+				const branchEndIndex = findClosingBracket(string, i);
+
+				if (branchEndIndex === -1) {
+					throw new Error(`Unbalanced curly braces in string: "${message}"`);
+				}
+
+				const caseBody = string.slice(i + 1, branchEndIndex);  // Don't include the braces
+				cases[latestTerm] = caseBody;
+
+				i = branchEndIndex; // Will be moved up where needed at end of loop.
+				latestTerm = null;
+			} else {
+				if (latestTerm) {
+					args.push(latestTerm);
+					latestTerm = null;
+				}
+
+				inTerm = true;
+				currTermStart = i;
+			}
+		}
+		i++;
+	}
+
+	if (inTerm) {
+		latestTerm = string.slice(currTermStart);
+	}
+
+	if (latestTerm) {
+		args.push(latestTerm);
+	}
+
+	return { args, cases };
+}
+
+/**
  * Finds the index of the matching closing curly bracket, including through
  * strings that could have nested brackets.
  * 

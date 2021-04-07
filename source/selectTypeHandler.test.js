@@ -49,4 +49,11 @@ describe('selectTypeHandler', function() {
 			expect(result).toBe('I am feeling ambivalent');
 		});
 	});
+
+	describe('Empty matches', function() {
+		test('No matching branch', function() {
+			let result = selectTypeHandler('some value');
+			expect(result).toBe('some value');
+		});
+	});
 });

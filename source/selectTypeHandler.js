@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import {findClosingBracket} from './utilities.js';
+import {parseCases} from './utilities.js';
 
 const OTHER = 'other';
 
@@ -33,24 +33,13 @@ const OTHER = 'other';
  * @return {String}
  */
 export default function selectTypeHandler(value, matches = '', locale, values, format) {
+	const { cases } = parseCases(matches);
 
-	// Use the value branch or the 'other' branch
-	let keyword = value;
-	let branchKeywordIndex = matches.indexOf(keyword);
-	if (branchKeywordIndex === -1) {
-		branchKeywordIndex = matches.indexOf(OTHER);
-		if (branchKeywordIndex === -1) {
-			return value;
-		}
+	if (value in cases) {
+		return format(cases[value], values);
 	}
-
-	let branchStartIndex = matches.indexOf('{', branchKeywordIndex + keyword.length) + 1;
-	if (branchStartIndex !== -1) {
-		let branchEndIndex = findClosingBracket(matches, branchStartIndex);
-		if (branchEndIndex !== -1) {
-			let branch = matches.substring(branchStartIndex, branchEndIndex);
-			return format(branch, values);
-		}
+	else if (OTHER in cases) {
+		return format(cases[OTHER], values);
 	}
 
 	return value;

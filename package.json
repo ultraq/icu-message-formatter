@@ -19,6 +19,7 @@
 	"main": "lib/icu-message-formatter.cjs.js",
 	"sideEffects": false,
 	"scripts": {
+		"format": "eslint --fix \"**/*.js\"",
 		"lint": "eslint \"**/*.js\"",
 		"test": "jest",
 		"coverage": "cat ./coverage/lcov.info | coveralls",

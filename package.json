@@ -1,6 +1,6 @@
 {
 	"name": "@ultraq/icu-message-formatter",
-	"version": "0.9.0",
+	"version": "0.10.0",
 	"description": "Format ICU message syntax strings from supplied parameters and your own configurable types",
 	"author": "Emanuel Rabina <emanuelrabina@gmail.com> (http://www.ultraq.net.nz/)",
 	"license": "Apache-2.0",
@@ -44,8 +44,9 @@
 		"@types/jest": "^26.0.15",
 		"babel-eslint": "^10.1.0",
 		"coveralls": "^3.1.0",
-		"eslint": "^7.6.0",
-		"eslint-config-ultraq": "^2.3.3",
+		"eslint": "^7.23.0",
+		"eslint-config-ultraq": "^2.4.0",
+		"eslint-plugin-compat": "^3.9.0",
 		"jest": "^26.6.3",
 		"rollup": "^2.23.0"
 	},

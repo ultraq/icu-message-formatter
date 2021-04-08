@@ -18,8 +18,7 @@ import {parseCases} from './utilities.js';
 
 let keyCounter = 0;
 
-// All the special keywords that can be used in `plural` blocks for the various
-// branches.
+// All the special keywords that can be used in `plural` blocks for the various branches
 const ONE   = 'one';
 const OTHER = 'other';
 
@@ -31,7 +30,6 @@ const OTHER = 'other';
  */
 function replaceNumberSign(caseBody, value) {
 	let i = 0;
-
 	let output = '';
 	let numBraces = 0;
 	const numberValues = {};
@@ -46,13 +44,20 @@ function replaceNumberSign(caseBody, value) {
 			output += caseBody[i];
 		}
 
-		if (caseBody[i] === '{') numBraces++;
-		else if (caseBody[i] === '}') numBraces--;
+		if (caseBody[i] === '{') {
+			numBraces++;
+		}
+		else if (caseBody[i] === '}') {
+			numBraces--;
+		}
 
 		i++;
 	}
 
-	return { caseBody: output, numberValues };
+	return {
+		caseBody: output,
+		numberValues
+	};
 }
 
 /**
@@ -72,8 +77,9 @@ function replaceNumberSign(caseBody, value) {
 export default function pluralTypeHandler(value, matches = '', locale, values, format) {
 	const keywordPossibilities = [];
 
-	if (value === 1) keywordPossibilities.push(ONE);
-
+	if (value === 1) {
+		keywordPossibilities.push(ONE);
+	}
 	keywordPossibilities.push(`=${value}`, OTHER);
 
 	const { cases } = parseCases(matches);

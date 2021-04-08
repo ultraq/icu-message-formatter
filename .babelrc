@@ -4,23 +4,6 @@
 		"@babel/plugin-transform-runtime"
 	],
 	"presets": [
-		["@babel/preset-env", {
-			"targets": {
-				"browsers": [
-					"ie 11"
-				]
-			}
-		}]
-	],
-	"env": {
-		"test": {
-			"presets": [
-				["@babel/preset-env", {
-					"targets": {
-						"node": "current"
-					}
-				}]
-			]
-		}
-	}
+		"@babel/preset-env"
+	]
 }

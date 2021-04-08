@@ -46,7 +46,9 @@ export function parseCases(string) {
 			latestTerm = string.slice(currTermStart, i);
 
 			// We want to process the opening char again so the case will be properly registered.
-			if (string[i] === '{') i--;
+			if (string[i] === '{') {
+				i--;
+			}
 		}
 
 		// New term
@@ -62,8 +64,7 @@ export function parseCases(string) {
 					throw new Error(`Unbalanced curly braces in string: "${string}"`);
 				}
 
-				const caseBody = string.slice(i + 1, branchEndIndex);  // Don't include the braces
-				cases[latestTerm] = caseBody;
+				cases[latestTerm] = string.slice(i + 1, branchEndIndex);  // Don't include the braces
 
 				i = branchEndIndex; // Will be moved up where needed at end of loop.
 				latestTerm = null;
@@ -89,7 +90,10 @@ export function parseCases(string) {
 		args.push(latestTerm);
 	}
 
-	return { args, cases };
+	return {
+		args,
+		cases
+	};
 }
 
 /**

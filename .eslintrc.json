@@ -1,6 +1,7 @@
 {
 	"extends": [
 		"eslint:recommended",
+		"plugin:compat/recommended",
 		"ultraq"
 	],
 	"parser": "babel-eslint",

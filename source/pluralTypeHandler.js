@@ -88,7 +88,10 @@ export default function pluralTypeHandler(value, matches = '', locale, values, f
 		const keyword = keywordPossibilities[i];
 		if (keyword in cases) {
 			const { caseBody, numberValues } = replaceNumberSign(cases[keyword], value);
-			return format(caseBody, Object.assign({}, values, numberValues));
+			return format(caseBody, {
+				...values,
+				...numberValues
+			});
 		}
 	}
 

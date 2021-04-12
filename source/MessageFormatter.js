@@ -14,10 +14,11 @@
  * limitations under the License.
  */
 
-import {findClosingBracket, splitFormattedArgument} from './utilities.js';
+import {findClosingBracket, replaceRichTags, splitFormattedArgument} from './utilities.js';
 
 import {flatten} from '@ultraq/array-utils';
 import {memoize} from '@ultraq/function-utils';
+import { defaultRichHandler } from './defaultRichHandler.js';
 
 /**
  * The main class for formatting messages.
@@ -36,10 +37,11 @@ export default class MessageFormatter {
 	 *   their values being the functions that will return a nicely formatted
 	 *   string for the data and locale they are given.
 	 */
-	constructor(locale, typeHandlers = {}) {
+	constructor(locale, typeHandlers = {}, richHandler = null) {
 
 		this.locale = locale;
 		this.typeHandlers = typeHandlers;
+		this.richHandler = richHandler ? richHandler : defaultRichHandler;
 	}
 
 	/**
@@ -55,6 +57,12 @@ export default class MessageFormatter {
 		return flatten(this.process(message, values)).join('');
 	})
 
+	rich(message, values = {}) {
+		const formatted = flatten(this.process(message, values));
+
+		return replaceRichTags(formatted, values, this.richHandler);
+	}
+
 	/**
 	 * Process an ICU message syntax string using `values` for placeholder data
 	 * and any currently-registered type handlers.  The result of this method is
@@ -68,6 +76,7 @@ export default class MessageFormatter {
 	 * 
 	 * @param {String} message
 	 * @param {Object} [values={}]
+	 * @param {}
 	 * @return {Array}
 	 */
 	process(message, values = {}) {
@@ -107,6 +116,7 @@ export default class MessageFormatter {
 				throw new Error(`Unbalanced curly braces in string: "${message}"`);
 			}
 		}
+	
 		return [message];
 	}
 }

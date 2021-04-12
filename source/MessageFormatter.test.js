@@ -150,4 +150,43 @@ describe('MessageFormatter', function() {
 			expect(formatter.format(message, { 'gender_of_host': 'other', host: 'John', 'num_guests': 12345, guest: 'you' })).toBe('John invites you and # other people to their party.');
 		});
 	});
+
+	describe('#rich', function () {
+		test('Rich formatting works on simple string', function () {
+			let formatter = new MessageFormatter('en-NZ', {
+				plural: pluralTypeHandler,
+				select: selectTypeHandler
+			});
+
+			let result = formatter.rich('simple text');
+
+			expect(result).toStrictEqual(['simple text']);
+		});
+
+		test('Rich formatting applies default formatter to string with tags', function () {
+			let formatter = new MessageFormatter('en-NZ', {
+				plural: pluralTypeHandler,
+				select: selectTypeHandler
+			});
+
+			let result = formatter.rich('have a <a>link!</a>');
+
+			expect(result).toStrictEqual(['have a ', '<a>link!</a>']);
+		});
+
+		test('Rich formatting applies custom formatter to string with tags', function () {
+			const customFormatter = (tag, tags, contents) => {
+				return { tag, contents };
+			};
+
+			let formatter = new MessageFormatter('en-NZ', {
+				plural: pluralTypeHandler,
+				select: selectTypeHandler
+			}, customFormatter);
+
+			let result = formatter.rich('have a <a>link!</a>');
+
+			expect(result).toStrictEqual(['have a ', {contents: ['link!'], tag: 'a'}]);
+		});
+	});
 });

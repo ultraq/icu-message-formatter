@@ -67,7 +67,7 @@ function replaceNumberSign(caseBody, value) {
  * See https://formatjs.io/docs/core-concepts/icu-syntax#plural-format for more
  * details on how the `plural` statement works.
  * 
- * @param {Number|String} value
+ * @param {String} value
  * @param {String} matches
  * @param {String} locale
  * @param {String} values
@@ -75,19 +75,27 @@ function replaceNumberSign(caseBody, value) {
  * @return {String}
  */
 export default function pluralTypeHandler(value, matches = '', locale, values, format) {
+	const { args, cases } = parseCases(matches);
+
+	let intValue = parseInt(value); 
+
+	args.forEach((arg) => {
+		if (arg.startsWith('offset:')) {
+			intValue -= parseInt(arg.slice('offset:'.length));
+		}
+	});
+
 	const keywordPossibilities = [];
 
-	if (value === 1) {
+	if (intValue === 1) {
 		keywordPossibilities.push(ONE);
 	}
-	keywordPossibilities.push(`=${value}`, OTHER);
-
-	const { cases } = parseCases(matches);
+	keywordPossibilities.push(`=${intValue}`, OTHER);
 
 	for (let i = 0; i < keywordPossibilities.length; i++) {
 		const keyword = keywordPossibilities[i];
 		if (keyword in cases) {
-			const { caseBody, numberValues } = replaceNumberSign(cases[keyword], value);
+			const { caseBody, numberValues } = replaceNumberSign(cases[keyword], intValue);
 			return format(caseBody, {
 				...values,
 				...numberValues

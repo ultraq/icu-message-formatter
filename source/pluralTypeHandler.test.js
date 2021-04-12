@@ -105,6 +105,40 @@ describe('pluralTypeHandler', function() {
 		});
 	});
 
+	describe('Supports offset argument', function () {
+		const formatter = new MessageFormatter('en-NZ', {
+			plural: pluralTypeHandler
+		});
+		
+		test('If unspecified, offset is null', function () {
+			let message = '{days, plural, one {one day} =2 {two days} other {# days}}...';
+
+			let result = formatter.format(message, { days: 5 });
+			expect(result).toBe('5 days...');
+		});
+
+		test('Specified offset will be applied via =X branch', function () {
+			let message = '{days, plural, offset:3 one {one day} =2 {two days} other {# days}}...';
+
+			let result = formatter.format(message, { days: 5 });
+			expect(result).toBe('two days...');
+		});
+
+		test('Specified offset will be applied via number sign', function () {
+			let message = '{days, plural, offset:1 one {one day} =2 {two days} other {# days}}...';
+
+			let result = formatter.format(message, { days: 5 });
+			expect(result).toBe('4 days...');
+		});
+
+		test('Specified offset will be applied via `one` keyword', function () {
+			let message = '{days, plural, offset:4 one {one day} =2 {two days} other {# days}}...';
+
+			let result = formatter.format(message, { days: 5 });
+			expect(result).toBe('one day...');
+		});
+	});
+
 	describe('Empty matches', function() {
 		test('No matching branch', function() {
 			let result = pluralTypeHandler('some value');

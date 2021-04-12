@@ -36,6 +36,10 @@ export default class MessageFormatter {
 	 *   Optional object where the keys are the names of the types to register,
 	 *   their values being the functions that will return a nicely formatted
 	 *   string for the data and locale they are given.
+	 * @param {Function} [richHandler=null]
+	 *   A function that takes an identified tag name, the set of provided values,
+	 *   and contents for that tag, and returns a populated element. The element
+	 *   may be anything, so any framework is supported.
 	 */
 	constructor(locale, typeHandlers = {}, richHandler = null) {
 
@@ -76,7 +80,6 @@ export default class MessageFormatter {
 	 * 
 	 * @param {String} message
 	 * @param {Object} [values={}]
-	 * @param {}
 	 * @return {Array}
 	 */
 	process(message, values = {}) {
@@ -116,7 +119,7 @@ export default class MessageFormatter {
 				throw new Error(`Unbalanced curly braces in string: "${message}"`);
 			}
 		}
-	
+
 		return [message];
 	}
 }

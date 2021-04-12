@@ -20,22 +20,22 @@ import { defaultRichHandler } from './defaultRichHandler';
 /**
  * Tests for the ICU message formatter.
  */
-describe('defaultRichHandler', function () {
+describe('defaultRichHandler', function() {
 
-    describe('#format', function () {
-        test('Returns simple string', function () {
-            let result = defaultRichHandler("a", "literally anything", "Contents")
-            expect(result).toBe('<a>Contents</a>');
-        });
+	describe('#format', function() {
+		test('Returns simple string', function() {
+			let result = defaultRichHandler('a', 'literally anything', 'Contents');
+			expect(result).toBe('<a>Contents</a>');
+		});
 
-        test('Works with empty contents', function () {
-            let result = defaultRichHandler("a", "literally anything", "")
-            expect(result).toBe('<a></a>');
-        });
+		test('Works with empty contents', function() {
+			let result = defaultRichHandler('a', 'literally anything', '');
+			expect(result).toBe('<a></a>');
+		});
 
-        test('Works with empty tag and contents', function () {
-            let result = defaultRichHandler("", "literally anything", "")
-            expect(result).toBe('<></>');
-        });
-    });
+		test('Works with empty tag and contents', function() {
+			let result = defaultRichHandler('', 'literally anything', '');
+			expect(result).toBe('<></>');
+		});
+	});
 });

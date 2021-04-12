@@ -103,6 +103,9 @@ export function parseCases(string) {
  * Currently does not support self closing tags.
  * 
  * @param {String[]|any[]} message
+ * @param {Object} tags
+ * @param {Function} handler
+ * @return {String[]|any[]}
  */
 export function replaceRichTags(message, tags, handler) {
 	const isHtmlTagChar = ch => /[a-zA-Z-_]/.test(ch);
@@ -117,7 +120,7 @@ export function replaceRichTags(message, tags, handler) {
 
 		let j = 0;
 		let currTagStart = null;
-		let inTag = false
+		let inTag = false;
 
 		let processedSegment = false;
 		while (j < segment.length) {
@@ -143,7 +146,8 @@ export function replaceRichTags(message, tags, handler) {
 
 				if (entireTagInSegment) {
 					tagContents.push(segment.slice(j + 1, endingLocation.segmentStart));
-				} else {
+				}
+				else {
 					tagContents.push(segment.slice(j + 1));
 
 					for (let k = i + 1; k < endingLocation.segmentIndex; k++) {
@@ -188,6 +192,12 @@ export function replaceRichTags(message, tags, handler) {
 /**
  * Finds the index of the matching closing tag, including through strings that
  * could have nested tags.
+ * 
+ * @param {String[]|any[]} message
+ * @param {String} tag
+ * @param {Number} startIndex
+ * @param {Number} startSegmentIndex
+ * @return {Boolean}
  */
 function findClosingTag(message, tag, startIndex, startSegmentIndex) {
 	const isHtmlTagChar = ch => /[a-zA-Z-_]/.test(ch);
@@ -203,7 +213,7 @@ function findClosingTag(message, tag, startIndex, startSegmentIndex) {
 
 		let currTagIsClosing = false;
 		let currTagStart = null;
-		let inTag = false
+		let inTag = false;
 		const startJ = i === startIndex ? startSegmentIndex : 0;
 		for (let j = startJ; j < segment.length; j++) {
 			// Start of tag
@@ -224,7 +234,8 @@ function findClosingTag(message, tag, startIndex, startSegmentIndex) {
 				if (currTag === tag) {
 					if (currTagIsClosing) {
 						depth--;
-					} else {
+					}
+					else {
 						depth++;
 					}
 
@@ -233,7 +244,7 @@ function findClosingTag(message, tag, startIndex, startSegmentIndex) {
 							segmentIndex: i,
 							segmentStart: currTagStart,
 							segmentEnd: j
-						}
+						};
 					}
 				}
 

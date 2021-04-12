@@ -151,8 +151,8 @@ describe('MessageFormatter', function() {
 		});
 	});
 
-	describe('#rich', function () {
-		test('Rich formatting works on simple string', function () {
+	describe('#rich', function() {
+		test('Rich formatting works on simple string', function() {
 			let formatter = new MessageFormatter('en-NZ', {
 				plural: pluralTypeHandler,
 				select: selectTypeHandler
@@ -163,7 +163,7 @@ describe('MessageFormatter', function() {
 			expect(result).toStrictEqual(['simple text']);
 		});
 
-		test('Rich formatting applies default formatter to string with tags', function () {
+		test('Rich formatting applies default formatter to string with tags', function() {
 			let formatter = new MessageFormatter('en-NZ', {
 				plural: pluralTypeHandler,
 				select: selectTypeHandler
@@ -174,7 +174,7 @@ describe('MessageFormatter', function() {
 			expect(result).toStrictEqual(['have a ', '<a>link!</a>']);
 		});
 
-		test('Rich formatting applies custom formatter to string with tags', function () {
+		test('Rich formatting applies custom formatter to string with tags', function() {
 			const customFormatter = (tag, tags, contents) => {
 				return { tag, contents };
 			};

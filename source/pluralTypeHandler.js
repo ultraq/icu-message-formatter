@@ -77,7 +77,7 @@ function replaceNumberSign(caseBody, value) {
 export default function pluralTypeHandler(value, matches = '', locale, values, format) {
 	const { args, cases } = parseCases(matches);
 
-	let intValue = parseInt(value); 
+	let intValue = parseInt(value);
 
 	args.forEach((arg) => {
 		if (arg.startsWith('offset:')) {

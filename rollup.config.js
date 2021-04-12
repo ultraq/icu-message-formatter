@@ -2,6 +2,7 @@
 import babel       from '@rollup/plugin-babel';
 import commonjs    from '@rollup/plugin-commonjs';
 import nodeResolve from '@rollup/plugin-node-resolve';
+import { terser }  from "rollup-plugin-terser";
 
 export default {
 	input: 'source/IcuMessageFormatter.js',
@@ -12,9 +13,19 @@ export default {
 			sourcemap: true
 		},
 		{
+			file: `lib/icu-message-formatter.cjs.min.js`,
+			format: 'cjs',
+			plugins: [terser()]
+		},
+		{
 			file: `lib/icu-message-formatter.es.js`,
 			format: 'es',
 			sourcemap: true
+		},
+		{
+			file: `lib/icu-message-formatter.es.min.js`,
+			format: 'es',
+			plugins: [terser()]
 		}
 	],
 	plugins: [
@@ -22,7 +33,7 @@ export default {
 			babelHelpers: 'runtime'
 		}),
 		commonjs(),
-		nodeResolve()
+		nodeResolve(),
 	],
 	external: [
 		/@babel\/runtime/,

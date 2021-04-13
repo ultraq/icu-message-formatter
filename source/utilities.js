@@ -108,83 +108,49 @@ export function parseCases(string) {
  * @return {String[]|any[]}
  */
 export function replaceRichTags(message, tags, handler) {
-	const isHtmlTagChar = ch => /[a-zA-Z-_]/.test(ch);
 	const result = [];
 
-	for (let i = 0; i < message.length; i++) {
-		const segment = message[i];
-		if (typeof segment !== 'string') {
-			result.push(segment);
-			continue;
+	const onTagClose = (segment, currTagIsClosing, currTag, i, j, currTagStart) => {
+		if (currTagIsClosing) {
+			return {
+				break: true
+			}
 		}
 
-		let j = 0;
-		let currTagStart = null;
-		let inTag = false;
+		const endingLocation = findClosingTag(message, currTag, i, j);
 
-		let processedSegment = false;
-		while (j < segment.length) {
-			// Start of potential tag
-			if (!inTag && segment[j] === '<') {
-				currTagStart = j;
-				inTag = true;
-			}
-
-			// Tag ended
-			else if (inTag && segment[j] === '>') {
-				const currTag = segment.slice(currTagStart + 1, j);
-				const endingLocation = findClosingTag(message, currTag, i, j);
-
-				if (!endingLocation) {
-					throw new Error(`Unbalanced tags: no closing tag found for <${currTag}>`);
-				}
-
-				const entireTagInSegment = endingLocation.segmentIndex === i;
-				const segmentContainingClosingTag = message[endingLocation.segmentIndex];
-
-				const tagContents = [];
-
-				if (entireTagInSegment) {
-					tagContents.push(segment.slice(j + 1, endingLocation.segmentStart));
-				}
-				else {
-					tagContents.push(segment.slice(j + 1));
-
-					for (let k = i + 1; k < endingLocation.segmentIndex; k++) {
-						tagContents.push(message[k]);
-					}
-					tagContents.push(segmentContainingClosingTag.slice(0, endingLocation.segmentStart));
-				}
-
-				result.push(segment.slice(0, currTagStart));
-
-				result.push(handler(currTag, tags, replaceRichTags(tagContents.filter(s => s !== ''), tags, handler)));
-
-				message.splice(endingLocation.segmentIndex + 1, 0, segmentContainingClosingTag.slice(endingLocation.segmentEnd + 1));
-
-				processedSegment = true;
-
-				// Will be advanced to the next segment at the end of the loop.
-				i = endingLocation.segmentIndex;
-
-				// We've spliced in any remainder of the current segment as the
-				// next segment. We want to immediately advance to that.
-				break;
-			}
-
-			// Not a valid tag, reset state.
-			else if (inTag && !isHtmlTagChar(segment[j])) {
-				currTagStart = null;
-				inTag = false;
-			}
-
-			j++;
+		if (!endingLocation) {
+			throw new Error(`Unbalanced tags: no closing tag found for <${currTag}>`);
 		}
 
-		if (!processedSegment) {
-			result.push(segment);
+		const entireTagInSegment = endingLocation.segmentIndex === i;
+		const segmentContainingClosingTag = message[endingLocation.segmentIndex];
+
+		const tagContents = [];
+
+		if (entireTagInSegment) {
+			tagContents.push(segment.slice(j + 1, endingLocation.segmentStart));
 		}
+		else {
+			tagContents.push(segment.slice(j + 1));
+
+			for (let k = i + 1; k < endingLocation.segmentIndex; k++) {
+				tagContents.push(message[k]);
+			}
+			tagContents.push(segmentContainingClosingTag.slice(0, endingLocation.segmentStart));
+		}
+
+		result.push(segment.slice(0, currTagStart));
+
+		result.push(handler(currTag, tags, replaceRichTags(tagContents.filter(s => s !== ''), tags, handler)));
+
+		message.splice(endingLocation.segmentIndex + 1, 0, segmentContainingClosingTag.slice(endingLocation.segmentEnd + 1));
+
+
+		return { processedSegment: true, newSegmentIndex: endingLocation.segmentIndex, break: true };
 	}
+
+	traverseMessageTags(message, 0, 0, result, onTagClose);
 
 	return result.filter(s => s !== '');
 }
@@ -200,22 +166,53 @@ export function replaceRichTags(message, tags, handler) {
  * @return {Boolean}
  */
 function findClosingTag(message, tag, startIndex, startSegmentIndex) {
-	const isHtmlTagChar = ch => /[a-zA-Z-_]/.test(ch);
-
+	let position;  // set in callback
 	let depth = 1;
 
-	for (let i = startIndex; i < message.length; i++) {
+	const onTagClose = (segment, currTagIsClosing, currTag, i, j, currTagStart) => {
+		if (currTag === tag) {
+			if (currTagIsClosing) {
+				depth--;
+			}
+			else {
+				depth++;
+			}
+
+			if (depth === 0) {
+				position = {
+					segmentIndex: i,
+					segmentStart: currTagStart,
+					segmentEnd: j
+				};
+
+				return { exit: true }
+			}
+		}
+
+		return { exit: false };
+	}
+
+	traverseMessageTags(message, startIndex, startSegmentIndex, [], onTagClose);
+
+	return position;
+}
+
+function traverseMessageTags(message, startI, startJ, result, onTagClose) {
+	const isHtmlTagChar = ch => /[a-zA-Z-_]/.test(ch);
+	for (let i = startI; i < message.length; i++) {
 		const segment = message[i];
 
 		if (typeof segment !== 'string') {
+			result.push(segment);
 			continue;
 		}
 
 		let currTagIsClosing = false;
 		let currTagStart = null;
 		let inTag = false;
-		const startJ = i === startIndex ? startSegmentIndex : 0;
-		for (let j = startJ; j < segment.length; j++) {
+
+		let processedSegment = false;
+		for (let j = (i === startI ? startJ : 0); j < segment.length; j++) {
 			// Start of tag
 			if (!inTag && segment[j] === '<') {
 				currTagStart = j;
@@ -231,22 +228,12 @@ function findClosingTag(message, tag, startIndex, startSegmentIndex) {
 			else if (inTag && segment[j] === '>') {
 				const currTag = segment.slice(currTagStart + 1 + currTagIsClosing, j);
 
-				if (currTag === tag) {
-					if (currTagIsClosing) {
-						depth--;
-					}
-					else {
-						depth++;
-					}
+				const instructions = onTagClose(segment, currTagIsClosing, currTag, i, j, currTagStart);
 
-					if (depth === 0) {
-						return {
-							segmentIndex: i,
-							segmentStart: currTagStart,
-							segmentEnd: j
-						};
-					}
-				}
+				if (instructions.exit) return;
+				if (instructions.newSegmentIndex) i = instructions.newSegmentIndex;
+				if (instructions.processedSegment) processedSegment = true;
+				if (instructions.break) break;
 
 				currTagIsClosing = false;
 				currTagStart = null;
@@ -259,6 +246,11 @@ function findClosingTag(message, tag, startIndex, startSegmentIndex) {
 				currTagStart = null;
 				inTag = false;
 			}
+		}
+
+
+		if (!processedSegment) {
+			result.push(segment);
 		}
 	}
 }

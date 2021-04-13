@@ -114,7 +114,7 @@ export function replaceRichTags(message, tags, handler) {
 		if (currTagIsClosing) {
 			return {
 				break: true
-			}
+			};
 		}
 
 		const endingLocation = findClosingTag(message, currTag, i, j);
@@ -148,7 +148,7 @@ export function replaceRichTags(message, tags, handler) {
 
 
 		return { processedSegment: true, newSegmentIndex: endingLocation.segmentIndex, break: true };
-	}
+	};
 
 	traverseMessageTags(message, 0, 0, result, onTagClose);
 
@@ -185,12 +185,12 @@ function findClosingTag(message, tag, startIndex, startSegmentIndex) {
 					segmentEnd: j
 				};
 
-				return { exit: true }
+				return { exit: true };
 			}
 		}
 
 		return { exit: false };
-	}
+	};
 
 	traverseMessageTags(message, startIndex, startSegmentIndex, [], onTagClose);
 
@@ -230,10 +230,18 @@ function traverseMessageTags(message, startI, startJ, result, onTagClose) {
 
 				const instructions = onTagClose(segment, currTagIsClosing, currTag, i, j, currTagStart);
 
-				if (instructions.exit) return;
-				if (instructions.newSegmentIndex) i = instructions.newSegmentIndex;
-				if (instructions.processedSegment) processedSegment = true;
-				if (instructions.break) break;
+				if (instructions.exit) {
+					return;
+				}
+				if (instructions.newSegmentIndex) {
+					i = instructions.newSegmentIndex;
+				}
+				if (instructions.processedSegment) {
+					processedSegment = true;
+				}
+				if (instructions.break) {
+					break;
+				}
 
 				currTagIsClosing = false;
 				currTagStart = null;

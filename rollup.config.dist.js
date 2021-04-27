@@ -2,32 +2,28 @@
 import babel       from '@rollup/plugin-babel';
 import commonjs    from '@rollup/plugin-commonjs';
 import nodeResolve from '@rollup/plugin-node-resolve';
+import {terser}    from 'rollup-plugin-terser';
 
 export default {
 	input: 'source/IcuMessageFormatter.js',
 	output: [
 		{
-			file: `lib/icu-message-formatter.cjs.js`,
-			format: 'cjs',
-			sourcemap: true
-		},
-		{
-			file: `lib/icu-message-formatter.es.js`,
-			format: 'es',
+			file: 'dist/icu-message-formatter.min.js',
+			format: 'iife',
+			name: 'IcuMessageFormatter',
 			sourcemap: true
 		}
 	],
 	plugins: [
 		commonjs(),
 		babel({
-			babelHelpers: 'runtime'
+			babelHelpers: 'bundled',
+			skipPreflightCheck: true // See: https://github.com/rollup/plugins/issues/381#issuecomment-627215009
 		}),
-		nodeResolve()
-	],
-	external: [
-		/@babel\/runtime/,
-		'@ultraq/array-utils',
-		'@ultraq/function-utils'
+		nodeResolve({
+			browser: true
+		}),
+		terser()
 	],
 	treeshake: {
 		moduleSideEffects: false

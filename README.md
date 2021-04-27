@@ -25,9 +25,19 @@ below).
 Installation
 ------------
 
+### As a module in a JavaScript project:
+
 ```
 npm install @ultraq/icu-message-formatter
 ```
+
+### As a standalone script for the browser via the unpkg CDN:
+
+```html
+<script src="https://unpkg.com/@ultraq/icu-message-formatter/dist/icu-message-formatter.min.js"></script>
+```
+
+This module will then be present in the global scope as `IcuMessageFormatter`.
 
 
 Usage
@@ -39,10 +49,12 @@ process whatever string and data you throw at it for the locale you want it in:
 
 ```javascript
 import {MessageFormatter} from '@ultraq/icu-message-formatter';
-import {toCurrencyString} from 'my-custom-currency-library';
+// const {MessageFormatter} = IcuMessageFormatter; // If in a browser context and using the browser bundle
 
 let formatter = new MessageFormatter('en-NZ', {
-  currency: ({value, currency}, options, locale, values) => toCurrencyString(value, currency, locale)
+  currency: ({value, currency}, options, locale, values) => {
+     return new Intl.NumberFormat(locale, { style: 'currency', currency }).format(value);
+  }
 });
 
 let message = formatter.format('Hey {name}, that\'s gonna cost you {amount, currency}!', {

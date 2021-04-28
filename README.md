@@ -31,13 +31,18 @@ Installation
 npm install @ultraq/icu-message-formatter
 ```
 
-### As a standalone script for the browser via the unpkg CDN:
+### As a script for the browser via the unpkg CDN:
 
-```html
-<script src="https://unpkg.com/@ultraq/icu-message-formatter/dist/icu-message-formatter.min.js"></script>
-```
+An IIFE version of this library is available at:
+https://unpkg.com/@ultraq/icu-message-formatter/dist/icu-message-formatter.min.js
 
-This module will then be present in the global scope as `IcuMessageFormatter`.
+In this form, this module will then be present in the global scope as `IcuMessageFormatter`.
+
+An ESM version of this library is available at:
+https://unpkg.com/@ultraq/icu-message-formatter/dist/icu-message-formatter.es.min.js
+
+That URL can be used directly in ESM scripts made for the browser, and otherwise
+works like the NPM package.
 
 
 Usage
@@ -49,7 +54,7 @@ process whatever string and data you throw at it for the locale you want it in:
 
 ```javascript
 import {MessageFormatter} from '@ultraq/icu-message-formatter';
-// const {MessageFormatter} = IcuMessageFormatter; // If in a browser context and using the browser bundle
+// const {MessageFormatter} = IcuMessageFormatter; // If in a browser context using the IIFE bundle
 
 let formatter = new MessageFormatter('en-NZ', {
   currency: ({value, currency}, options, locale, values) => {

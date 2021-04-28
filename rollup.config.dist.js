@@ -12,6 +12,12 @@ export default {
 			format: 'iife',
 			name: 'IcuMessageFormatter',
 			sourcemap: true
+		},
+		{
+			file: 'dist/icu-message-formatter.es.min.js',
+			format: 'es',
+			name: 'IcuMessageFormatter',
+			sourcemap: true
 		}
 	],
 	plugins: [

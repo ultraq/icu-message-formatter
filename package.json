@@ -22,7 +22,6 @@
 		"format": "eslint --fix \"**/*.js\"",
 		"lint": "eslint \"**/*.js\"",
 		"test": "jest",
-		"coverage": "cat ./coverage/lcov.info | coveralls",
 		"build": "rollup --config && rollup --config rollup.config.dist.js",
 		"prepublishOnly": "npm run build"
 	},
@@ -43,7 +42,6 @@
 		"@rollup/plugin-node-resolve": "^8.4.0",
 		"@types/jest": "^26.0.15",
 		"babel-eslint": "^10.1.0",
-		"coveralls": "^3.1.0",
 		"eslint": "^7.23.0",
 		"eslint-config-ultraq": "^2.4.0",
 		"eslint-plugin-compat": "^3.9.0",

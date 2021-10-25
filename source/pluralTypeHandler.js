@@ -16,6 +16,8 @@
 
 import {parseCases} from './utilities.js';
 
+let pluralFormatter;
+
 let keyCounter = 0;
 
 // All the special keywords that can be used in `plural` blocks for the various branches
@@ -87,6 +89,19 @@ export default function pluralTypeHandler(value, matches = '', locale, values, f
 
 	const keywordPossibilities = [];
 
+	if ('PluralRules' in Intl) {
+		// Effectively memoize because instantiation of `Int.*` objects is expensive.
+		if (pluralFormatter === undefined || pluralFormatter.resolvedOptions().locale !== locale) {
+			pluralFormatter = new Intl.PluralRules(locale);
+		}
+
+		const pluralKeyword = pluralFormatter.select(intValue);
+
+		// Other is always added last with least priority, so we don't want to add it here.
+		if (pluralKeyword !== OTHER) {
+			keywordPossibilities.push(pluralKeyword);
+		}
+	}
 	if (intValue === 1) {
 		keywordPossibilities.push(ONE);
 	}

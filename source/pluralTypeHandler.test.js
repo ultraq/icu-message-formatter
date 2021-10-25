@@ -139,6 +139,46 @@ describe('pluralTypeHandler', function() {
 		});
 	});
 
+
+	describe('Intl PluralRules', function () {
+		const formatterAr = new MessageFormatter('ar', {
+			plural: pluralTypeHandler
+		});
+
+		const messageAr = `{value, plural,
+			zero {ZERO}
+			one {ONE}
+			two {TWO}
+			few {FEW}
+			other {OTHER}
+		}`;
+
+		test('zero', function () {
+			let result = formatterAr.format(messageAr, { value: 0 });
+			expect(result).toBe('ZERO');
+		});
+
+		test('one', function () {
+			let result = formatterAr.format(messageAr, { value: 1 });
+			expect(result).toBe('ONE');
+		});
+
+		test('two', function () {
+			let result = formatterAr.format(messageAr, { value: 2 });
+			expect(result).toBe('TWO');
+		});
+
+		test('few', function () {
+			let result = formatterAr.format(messageAr, { value: 3 });
+			expect(result).toBe('FEW');
+		});
+
+		test('other', function () {
+			let result = formatterAr.format(messageAr, { value: 17 });
+			expect(result).toBe('OTHER');
+		});
+	});
+
 	describe('Empty matches', function() {
 		test('No matching branch', function() {
 			let result = pluralTypeHandler('some value');

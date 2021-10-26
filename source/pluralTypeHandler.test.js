@@ -140,7 +140,7 @@ describe('pluralTypeHandler', function() {
 	});
 
 
-	describe('Intl PluralRules', function () {
+	describe('Intl PluralRules', function() {
 		const formatterAr = new MessageFormatter('ar', {
 			plural: pluralTypeHandler
 		});
@@ -153,27 +153,27 @@ describe('pluralTypeHandler', function() {
 			other {OTHER}
 		}`;
 
-		test('zero', function () {
+		test('zero', function() {
 			let result = formatterAr.format(messageAr, { value: 0 });
 			expect(result).toBe('ZERO');
 		});
 
-		test('one', function () {
+		test('one', function() {
 			let result = formatterAr.format(messageAr, { value: 1 });
 			expect(result).toBe('ONE');
 		});
 
-		test('two', function () {
+		test('two', function() {
 			let result = formatterAr.format(messageAr, { value: 2 });
 			expect(result).toBe('TWO');
 		});
 
-		test('few', function () {
+		test('few', function() {
 			let result = formatterAr.format(messageAr, { value: 3 });
 			expect(result).toBe('FEW');
 		});
 
-		test('other', function () {
+		test('other', function() {
 			let result = formatterAr.format(messageAr, { value: 17 });
 			expect(result).toBe('OTHER');
 		});

@@ -72,8 +72,8 @@ function replaceNumberSign(caseBody, value) {
  * @param {String} value
  * @param {String} matches
  * @param {String} locale
- * @param {String} values
- * @param {Function} format
+ * @param {FormatValues} values
+ * @param {FormatFunction} format
  * @return {String}
  */
 export default function pluralTypeHandler(value, matches = '', locale, values, format) {

@@ -20,6 +20,28 @@ import {flatten} from '@ultraq/array-utils';
 import {memoize} from '@ultraq/function-utils';
 
 /**
+ * @typedef {Record<string,any>} FormatValues
+ */
+
+/**
+ * @callback FormatFunction
+ * @param {String} message
+ * @param {FormatValues} [values={}]
+ * @return {String}
+ */
+
+/**
+ * @template T
+ * @callback TypeHandler<T>
+ * @param {String} value
+ * @param {String} matches
+ * @param {String} locale
+ * @param {FormatValues} values
+ * @param {FormatFunction} format
+ * @return T
+ */
+
+/**
  * The main class for formatting messages.
  * 
  * @author Emanuel Rabina
@@ -31,7 +53,7 @@ export default class MessageFormatter {
 	 * you register.
 	 * 
 	 * @param {String} locale
-	 * @param {Object} [typeHandlers={}]
+	 * @param {Record<string,TypeHandler<*>>} [typeHandlers={}]
 	 *   Optional object where the keys are the names of the types to register,
 	 *   their values being the functions that will return a nicely formatted
 	 *   string for the data and locale they are given.
@@ -47,7 +69,7 @@ export default class MessageFormatter {
 	 * and any currently-registered type handlers.
 	 * 
 	 * @param {String} message
-	 * @param {Object} [values={}]
+	 * @param {FormatValues} [values={}]
 	 * @return {String}
 	 */
 	format = memoize((message, values = {}) => {
@@ -67,8 +89,8 @@ export default class MessageFormatter {
 	 * string renderer.
 	 * 
 	 * @param {String} message
-	 * @param {Object} [values={}]
-	 * @return {Array}
+	 * @param {FormatValues} [values={}]
+	 * @return {Array<any>}
 	 */
 	process(message, values = {}) {
 

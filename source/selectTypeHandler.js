@@ -25,12 +25,12 @@ const OTHER = 'other';
  * See https://formatjs.io/docs/core-concepts/icu-syntax#select-format for more
  * details on how the `select` statement works.
  * 
- * @param {String} value
- * @param {String} matches
- * @param {String} locale
+ * @param {string} value
+ * @param {string} matches
+ * @param {string} locale
  * @param {FormatValues} values
  * @param {FormatFunction} format
- * @return {String}
+ * @return {string}
  */
 export default function selectTypeHandler(value, matches = '', locale, values, format) {
 	const { cases } = parseCases(matches);

@@ -26,9 +26,9 @@ const OTHER = 'other';
 
 /**
  * @private
- * @param {String} caseBody
- * @param {Number} value
- * @return {Object} {caseBody: string, numberValues: object}
+ * @param {string} caseBody
+ * @param {number} value
+ * @return {{caseBody: string, numberValues: object}}
  */
 function replaceNumberSign(caseBody, value) {
 	let i = 0;
@@ -69,12 +69,12 @@ function replaceNumberSign(caseBody, value) {
  * See https://formatjs.io/docs/core-concepts/icu-syntax#plural-format for more
  * details on how the `plural` statement works.
  * 
- * @param {String} value
- * @param {String} matches
- * @param {String} locale
+ * @param {string} value
+ * @param {string} matches
+ * @param {string} locale
  * @param {FormatValues} values
  * @param {FormatFunction} format
- * @return {String}
+ * @return {string}
  */
 export default function pluralTypeHandler(value, matches = '', locale, values, format) {
 	const { args, cases } = parseCases(matches);

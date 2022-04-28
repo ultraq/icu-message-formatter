@@ -15,18 +15,25 @@
  */
 
 /**
- * Most branch-based type handlers are based around "cases".
- * For example, `select` and `plural` compare compare a value
- * to "case keys" to choose a subtranslation.
+ * @typedef ParseCasesResult
+ * @property {string[]} args
+ *   A list of prepended arguments.
+ * @property {Record<string,string>} cases
+ *   A map of all cases.
+ */
+
+/**
+ * Most branch-based type handlers are based around "cases".  For example,
+ * `select` and `plural` compare compare a value to "case keys" to choose a
+ * subtranslation.
  * 
- * This util splits "matches" portions provided to the aforementioned
- * handlers into case strings, and extracts any prepended arguments
- * (for example, `plural` supports an `offset:n` argument used for
- * populating the magic `#` variable).
+ * This util splits "matches" portions provided to the aforementioned handlers
+ * into case strings, and extracts any prepended arguments (for example,
+ * `plural` supports an `offset:n` argument used for populating the magic `#`
+ * variable).
  * 
- * @param {String} string
- * @return {Object} The `cases` key points to a map of all cases.
- *                  The `arguments` key points to a list of prepended arguments.
+ * @param {string} string
+ * @return {ParseCasesResult}
  */
 export function parseCases(string) {
 	const isWhitespace = ch => /\s/.test(ch);
@@ -100,10 +107,11 @@ export function parseCases(string) {
  * Finds the index of the matching closing curly bracket, including through
  * strings that could have nested brackets.
  * 
- * @param {String} string
- * @param {Number} fromIndex
- * @return {Number} The index of the matching closing bracket, or -1 if no
- *   closing bracket could be found.
+ * @param {string} string
+ * @param {number} fromIndex
+ * @return {number}
+ *   The index of the matching closing bracket, or -1 if no closing bracket
+ *   could be found.
  */
 export function findClosingBracket(string, fromIndex) {
 	let depth = 0;
@@ -126,8 +134,8 @@ export function findClosingBracket(string, fromIndex) {
  * Split a `{key, type, format}` block into those 3 parts, taking into account
  * nested message syntax that can exist in the `format` part.
  * 
- * @param {String} block
- * @return {Array}
+ * @param {string} block
+ * @return {string[]}
  *   An array with `key`, `type`, and `format` items in that order, if present
  *   in the formatted argument block.
  */
@@ -140,11 +148,11 @@ export function splitFormattedArgument(block) {
  * remainder of the string to be grouped together in a final entry.
  * 
  * @private
- * @param {String} string
- * @param {String} separator
- * @param {Number} limit
- * @param {Array} [accumulator=[]]
- * @return {Array}
+ * @param {string} string
+ * @param {string} separator
+ * @param {number} limit
+ * @param {string[]} [accumulator=[]]
+ * @return {string[]}
  */
 function split(string, separator, limit, accumulator = []) {
 	if (!string) {

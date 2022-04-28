@@ -25,20 +25,20 @@ import {memoize} from '@ultraq/function-utils';
 
 /**
  * @callback FormatFunction
- * @param {String} message
+ * @param {string} message
  * @param {FormatValues} [values={}]
- * @return {String}
+ * @return {string}
  */
 
 /**
  * @template T
  * @callback TypeHandler<T>
- * @param {String} value
- * @param {String} matches
- * @param {String} locale
+ * @param {string} value
+ * @param {string} matches
+ * @param {string} locale
  * @param {FormatValues} values
  * @param {FormatFunction} format
- * @return T
+ * @return {T}
  */
 
 /**
@@ -52,7 +52,7 @@ export default class MessageFormatter {
 	 * Creates a new formatter that can work using any of the custom type handlers
 	 * you register.
 	 * 
-	 * @param {String} locale
+	 * @param {string} locale
 	 * @param {Record<string,TypeHandler<*>>} [typeHandlers={}]
 	 *   Optional object where the keys are the names of the types to register,
 	 *   their values being the functions that will return a nicely formatted
@@ -68,9 +68,9 @@ export default class MessageFormatter {
 	 * Formats an ICU message syntax string using `values` for placeholder data
 	 * and any currently-registered type handlers.
 	 * 
-	 * @param {String} message
+	 * @param {string} message
 	 * @param {FormatValues} [values={}]
-	 * @return {String}
+	 * @return {string}
 	 */
 	format = memoize((message, values = {}) => {
 
@@ -88,7 +88,7 @@ export default class MessageFormatter {
 	 * This method is used by {@link MessageFormatter#format} where it acts as a
 	 * string renderer.
 	 * 
-	 * @param {String} message
+	 * @param {string} message
 	 * @param {FormatValues} [values={}]
 	 * @return {Array<any>}
 	 */

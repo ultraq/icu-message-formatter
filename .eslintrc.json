@@ -4,9 +4,9 @@
 		"plugin:compat/recommended",
 		"ultraq"
 	],
-	"parser": "babel-eslint",
+	"parser": "@babel/eslint-parser",
 	"parserOptions": {
-		"ecmaVersion": 2019
+		"ecmaVersion": 2020
 	},
 	"env": {
 		"browser": true,

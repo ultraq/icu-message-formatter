@@ -111,10 +111,10 @@ describe('MessageFormatter', function() {
 				}}
 			}`;
 
-			expect(formatter.format(message, { 'gender_of_host': 'male', host: 'John', 'num_guests': 115, guest: 'you' })).toBe('John invites you and 115 other people to his party.');
-			expect(formatter.format(message, { 'gender_of_host': 'female', host: 'John', 'num_guests': 1, guest: 'you' })).toBe('John invites you to her party.');
-			expect(formatter.format(message, { 'gender_of_host': 'other', host: 'John', 'num_guests': 2, guest: 'you' })).toBe('John invites you and one other person to their party.');
-			expect(formatter.format(message, { 'gender_of_host': 'other', host: 'John', 'num_guests': 12345, guest: 'you' })).toBe('John invites you and 12345 other people to their party.');
+			expect(formatter.format(message, {'gender_of_host': 'male', host: 'John', 'num_guests': 115, guest: 'you'})).toBe('John invites you and 115 other people to his party.');
+			expect(formatter.format(message, {'gender_of_host': 'female', host: 'John', 'num_guests': 1, guest: 'you'})).toBe('John invites you to her party.');
+			expect(formatter.format(message, {'gender_of_host': 'other', host: 'John', 'num_guests': 2, guest: 'you'})).toBe('John invites you and one other person to their party.');
+			expect(formatter.format(message, {'gender_of_host': 'other', host: 'John', 'num_guests': 12345, guest: 'you'})).toBe('John invites you and 12345 other people to their party.');
 		});
 
 		test('Select inside plural', function() {
@@ -142,12 +142,12 @@ describe('MessageFormatter', function() {
 				}}
 			}`;
 
-			expect(formatter.format(message, { 'gender_of_host': 'female', host: 'John', 'num_guests': 1, guest: 'you' })).toBe('John invites you to her party.');
-			expect(formatter.format(message, { 'gender_of_host': 'other', host: 'John', 'num_guests': 2, guest: 'you' })).toBe('John invites you and one other person to their party.');
+			expect(formatter.format(message, {'gender_of_host': 'female', host: 'John', 'num_guests': 1, guest: 'you'})).toBe('John invites you to her party.');
+			expect(formatter.format(message, {'gender_of_host': 'other', host: 'John', 'num_guests': 2, guest: 'you'})).toBe('John invites you and one other person to their party.');
 
 			// number sign only works in the immediately corresponding layer! Can't use a nested one.
-			expect(formatter.format(message, { 'gender_of_host': 'male', host: 'John', 'num_guests': 115, guest: 'you' })).toBe('John invites you and # other people to his party.');
-			expect(formatter.format(message, { 'gender_of_host': 'other', host: 'John', 'num_guests': 12345, guest: 'you' })).toBe('John invites you and # other people to their party.');
+			expect(formatter.format(message, {'gender_of_host': 'male', host: 'John', 'num_guests': 115, guest: 'you'})).toBe('John invites you and # other people to his party.');
+			expect(formatter.format(message, {'gender_of_host': 'other', host: 'John', 'num_guests': 12345, guest: 'you'})).toBe('John invites you and # other people to their party.');
 		});
 	});
 });

@@ -35,15 +35,15 @@ describe('pluralTypeHandler', function() {
 		}`;
 
 		test('=n', function() {
-			let result = formatter.format(message, { value: 2 });
+			let result = formatter.format(message, {value: 2});
 			expect(result).toBe('Stop thinking about that delicious duo of donuts');
 
-			result = formatter.format(message, { value: 3 });
+			result = formatter.format(message, {value: 3});
 			expect(result).toBe('Stop thinking about that triumphant trio of donuts');
 		});
 
 		test('other', function() {
-			let result = formatter.format(message, { value: 1000 });
+			let result = formatter.format(message, {value: 1000});
 			expect(result).toBe('Stop thinking about those donuts');
 		});
 
@@ -60,13 +60,13 @@ describe('pluralTypeHandler', function() {
 
 		test('No matching branch', function() {
 			let message = 'I have {cows, plural, one {a cow} two {some cows}}';
-			let result = formatter.format(message, { cows: 7 });
+			let result = formatter.format(message, {cows: 7});
 			expect(result).toBe('I have 7');
 		});
 
 		test('Keyword without branch', function() {
 			let message = 'I have {cows, plural, other}';
-			let result = formatter.format(message, { cows: 7 });
+			let result = formatter.format(message, {cows: 7});
 			expect(result).toBe('I have 7');
 		});
 	});
@@ -78,7 +78,7 @@ describe('pluralTypeHandler', function() {
 			let formatter = new MessageFormatter('en-NZ', {
 				plural: pluralTypeHandler
 			});
-			let result = formatter.format(message, { days: 7 });
+			let result = formatter.format(message, {days: 7});
 			expect(result).toBe('7 days...');
 		});
 
@@ -88,7 +88,7 @@ describe('pluralTypeHandler', function() {
 				number: numberTypeHandler,
 				plural: pluralTypeHandler
 			});
-			let result = formatter.format(message, { days: 1000 });
+			let result = formatter.format(message, {days: 1000});
 			expect(result).toBe('1,000 days...');
 		});
 
@@ -100,7 +100,7 @@ describe('pluralTypeHandler', function() {
 				other {ID: # {count, plural,
 						other {Count: #}
 					}}
-			}`, { id: 5, count: 11 });
+			}`, {id: 5, count: 11});
 			expect(result).toBe('ID: 5 Count: 11');
 		});
 	});
@@ -113,28 +113,28 @@ describe('pluralTypeHandler', function() {
 		test('If unspecified, offset is null', function() {
 			let message = '{days, plural, one {one day} =2 {two days} other {# days}}...';
 
-			let result = formatter.format(message, { days: 5 });
+			let result = formatter.format(message, {days: 5});
 			expect(result).toBe('5 days...');
 		});
 
 		test('Specified offset will be applied via =X branch', function() {
 			let message = '{days, plural, offset:3 one {one day} =2 {two days} other {# days}}...';
 
-			let result = formatter.format(message, { days: 5 });
+			let result = formatter.format(message, {days: 5});
 			expect(result).toBe('two days...');
 		});
 
 		test('Specified offset will be applied via number sign', function() {
 			let message = '{days, plural, offset:1 one {one day} =2 {two days} other {# days}}...';
 
-			let result = formatter.format(message, { days: 5 });
+			let result = formatter.format(message, {days: 5});
 			expect(result).toBe('4 days...');
 		});
 
 		test('Specified offset will be applied via `one` keyword', function() {
 			let message = '{days, plural, offset:4 one {one day} =2 {two days} other {# days}}...';
 
-			let result = formatter.format(message, { days: 5 });
+			let result = formatter.format(message, {days: 5});
 			expect(result).toBe('one day...');
 		});
 	});
@@ -154,27 +154,27 @@ describe('pluralTypeHandler', function() {
 		}`;
 
 		test('zero', function() {
-			let result = formatterAr.format(messageAr, { value: 0 });
+			let result = formatterAr.format(messageAr, {value: 0});
 			expect(result).toBe('ZERO');
 		});
 
 		test('one', function() {
-			let result = formatterAr.format(messageAr, { value: 1 });
+			let result = formatterAr.format(messageAr, {value: 1});
 			expect(result).toBe('ONE');
 		});
 
 		test('two', function() {
-			let result = formatterAr.format(messageAr, { value: 2 });
+			let result = formatterAr.format(messageAr, {value: 2});
 			expect(result).toBe('TWO');
 		});
 
 		test('few', function() {
-			let result = formatterAr.format(messageAr, { value: 3 });
+			let result = formatterAr.format(messageAr, {value: 3});
 			expect(result).toBe('FEW');
 		});
 
 		test('other', function() {
-			let result = formatterAr.format(messageAr, { value: 17 });
+			let result = formatterAr.format(messageAr, {value: 17});
 			expect(result).toBe('OTHER');
 		});
 	});

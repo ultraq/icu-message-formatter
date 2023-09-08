@@ -151,7 +151,7 @@ export function splitFormattedArgument(block) {
  * @param {string} string
  * @param {string} separator
  * @param {number} limit
- * @param {string[]} [accumulator=[]]
+ * @param {string[]} accumulator
  * @return {string[]}
  */
 function split(string, separator, limit, accumulator = []) {

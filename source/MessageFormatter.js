@@ -32,7 +32,7 @@ import {memoize} from '@ultraq/function-utils';
 
 /**
  * @template T
- * @callback TypeHandler<T>
+ * @callback TypeHandler
  * @param {string} value
  * @param {string} matches
  * @param {string} locale
@@ -53,7 +53,7 @@ export default class MessageFormatter {
 	 * you register.
 	 * 
 	 * @param {string} locale
-	 * @param {Record<string,TypeHandler<*>>} [typeHandlers={}]
+	 * @param {Record<string,TypeHandler<any>>} typeHandlers
 	 *   Optional object where the keys are the names of the types to register,
 	 *   their values being the functions that will return a nicely formatted
 	 *   string for the data and locale they are given.
@@ -68,14 +68,12 @@ export default class MessageFormatter {
 	 * Formats an ICU message syntax string using `values` for placeholder data
 	 * and any currently-registered type handlers.
 	 * 
-	 * @param {string} message
-	 * @param {FormatValues} [values={}]
-	 * @return {string}
+	 * @type {FormatFunction}
 	 */
 	format = memoize((message, values = {}) => {
 
 		return flatten(this.process(message, values)).join('');
-	})
+	});
 
 	/**
 	 * Process an ICU message syntax string using `values` for placeholder data
@@ -89,7 +87,7 @@ export default class MessageFormatter {
 	 * string renderer.
 	 * 
 	 * @param {string} message
-	 * @param {FormatValues} [values={}]
+	 * @param {FormatValues} values
 	 * @return {Array<any>}
 	 */
 	process(message, values = {}) {

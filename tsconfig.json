@@ -1,0 +1,11 @@
+{
+	"include": ["source/**/*.js"],
+	"exclude": ["source/**/*.test.js"],
+	"compilerOptions": {
+		"allowJs": true,
+		"declaration": true,
+		"declarationMap": true,
+		"emitDeclarationOnly": true,
+		"outFile": "lib/icu-message-formatter.d.ts"
+	}
+}

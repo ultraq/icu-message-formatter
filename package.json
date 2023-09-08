@@ -17,12 +17,16 @@
 	],
 	"module": "lib/icu-message-formatter.es.js",
 	"main": "lib/icu-message-formatter.cjs.js",
+	"types": "types/IcuMessageFormatter.d.ts",
 	"sideEffects": false,
 	"scripts": {
 		"format": "eslint --fix \"**/*.js\"",
 		"lint": "eslint \"**/*.js\"",
 		"test": "jest",
-		"build": "rollup --config --bundleConfigAsCjs && rollup --config rollup.config.dist.js --bundleConfigAsCjs",
+		"build": "npm run build:lib && npm run build:dist && npm run build:dts",
+		"build:lib": "rollup --config --bundleConfigAsCjs",
+		"build:dist": "rollup --config rollup.config.dist.js --bundleConfigAsCjs",
+		"build:dts": "tsc",
 		"prepublishOnly": "npm run build"
 	},
 	"dependencies": {
@@ -50,7 +54,8 @@
 		"eslint-plugin-import": "^2.28.1",
 		"eslint-plugin-jsdoc": "^46.5.1",
 		"jest": "^29.6.4",
-		"rollup": "^3.29.0"
+		"rollup": "^3.29.0",
+		"typescript": "^5.2.2"
 	},
 	"engines": {
 		"node": ">=18"

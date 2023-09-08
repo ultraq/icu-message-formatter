@@ -15,7 +15,7 @@
  */
 
 /* eslint-env jest */
-import { parseCases } from './utilities';
+import {parseCases} from './utilities';
 
 /**
  * Tests for the `parseCases` util.
@@ -45,13 +45,13 @@ describe('parseCases', function() {
 		test('multiple cases', function() {
 			let result = parseCases('key1 {case1} key2 {case2} key3 {case3}');
 			expect(result.args).toStrictEqual([]);
-			expect(result.cases).toStrictEqual({ key1: 'case1', key2: 'case2', key3: 'case3' });
+			expect(result.cases).toStrictEqual({key1: 'case1', key2: 'case2', key3: 'case3'});
 		});
 
 		test('multiple cases with symbols', function() {
 			let result = parseCases('=key1 {case1} &key2 {case2} key3 {case3}');
 			expect(result.args).toStrictEqual([]);
-			expect(result.cases).toStrictEqual({ '=key1': 'case1', '&key2': 'case2', key3: 'case3' });
+			expect(result.cases).toStrictEqual({'=key1': 'case1', '&key2': 'case2', key3: 'case3'});
 		});
 
 		test('multiple cases with inconsistent whitespace', function() {
@@ -61,13 +61,13 @@ describe('parseCases', function() {
     key2 {case2}
                                 key3 {case3}`);
 			expect(result.args).toStrictEqual([]);
-			expect(result.cases).toStrictEqual({ key1: 'case1', key2: 'case2', key3: 'case3' });
+			expect(result.cases).toStrictEqual({key1: 'case1', key2: 'case2', key3: 'case3'});
 		});
 
 		test('multiple cases with minimal whitespace', function() {
 			let result = parseCases(`key1{case1}key2{case2}key3{case3}`);
 			expect(result.args).toStrictEqual([]);
-			expect(result.cases).toStrictEqual({ key1: 'case1', key2: 'case2', key3: 'case3' });
+			expect(result.cases).toStrictEqual({key1: 'case1', key2: 'case2', key3: 'case3'});
 		});
 
 		test('multiple cases with complex bodies', function() {
@@ -77,7 +77,7 @@ describe('parseCases', function() {
     key2 {=key1 {case1} &key2 {case2} key3 {case3}}
                                 key3 {}`);
 			expect(result.args).toStrictEqual([]);
-			expect(result.cases).toStrictEqual({ key1: '{}{}{}{{{{}}}}', key2: '=key1 {case1} &key2 {case2} key3 {case3}', key3: '' });
+			expect(result.cases).toStrictEqual({key1: '{}{}{}{{{{}}}}', key2: '=key1 {case1} &key2 {case2} key3 {case3}', key3: ''});
 		});
 	});
 

@@ -86,7 +86,7 @@ export default class MessageFormatter {
 	 * string renderer.
 	 * 
 	 * @param {string} message
-	 * @param {FormatValues} values
+	 * @param {FormatValues} [values]
 	 * @return {any[]}
 	 */
 	process(message, values = {}) {

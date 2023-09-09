@@ -2,7 +2,7 @@
 	"extends": [
 		"eslint:recommended",
 		"plugin:compat/recommended",
-		"plugin:jsdoc/recommended-typescript-flavor",
+		"plugin:jsdoc/recommended",
 		"ultraq"
 	],
 	"parser": "@babel/eslint-parser",

@@ -28,8 +28,8 @@ const OTHER = 'other';
  * @param {string} value
  * @param {string} matches
  * @param {string} locale
- * @param {FormatValues} values
- * @param {ProcessFunction} process
+ * @param {Record<string,any>} values
+ * @param {(message: string, values?: Record<string,any>) => any[]} process
  * @return {any | any[]}
  */
 export default function selectTypeHandler(value, matches = '', locale, values, process) {

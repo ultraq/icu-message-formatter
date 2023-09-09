@@ -17,7 +17,7 @@
 	],
 	"module": "lib/icu-message-formatter.es.js",
 	"main": "lib/icu-message-formatter.cjs.js",
-	"types": "types/IcuMessageFormatter.d.ts",
+	"types": "index.d.ts",
 	"sideEffects": false,
 	"scripts": {
 		"format": "eslint --fix \"**/*.js\"",
@@ -26,7 +26,7 @@
 		"build": "npm run build:lib && npm run build:dist && npm run build:dts",
 		"build:lib": "rollup --config --bundleConfigAsCjs",
 		"build:dist": "rollup --config rollup.config.dist.js --bundleConfigAsCjs",
-		"build:dts": "tsc",
+		"build:dts": "tsc source/IcuMessageFormatter.js --allowJs --declaration --emitDeclarationOnly --outDir types",
 		"prepublishOnly": "npm run build"
 	},
 	"dependencies": {

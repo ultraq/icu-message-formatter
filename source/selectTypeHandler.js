@@ -29,17 +29,17 @@ const OTHER = 'other';
  * @param {string} matches
  * @param {string} locale
  * @param {FormatValues} values
- * @param {FormatFunction} format
- * @return {string}
+ * @param {ProcessFunction} process
+ * @return {any | any[]}
  */
-export default function selectTypeHandler(value, matches = '', locale, values, format) {
+export default function selectTypeHandler(value, matches = '', locale, values, process) {
 	const {cases} = parseCases(matches);
 
 	if (value in cases) {
-		return format(cases[value], values);
+		return process(cases[value], values);
 	}
 	else if (OTHER in cases) {
-		return format(cases[OTHER], values);
+		return process(cases[OTHER], values);
 	}
 
 	return value;

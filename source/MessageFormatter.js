@@ -33,10 +33,17 @@ import {memoize} from '@ultraq/function-utils';
 /**
  * @callback TypeHandler
  * @param {any} value
+ *   The object which matched the key of the block being processed.
  * @param {string} matches
+ *   Any format options associated with the block being processed.
  * @param {string} locale
+ *   The locale to use for formatting.
  * @param {FormatValues} values
+ *   The object of placeholder data given to the original `format`/`process`
+ *   call.
  * @param {ProcessFunction} process
+ *   The `process` function itself so that sub-messages can be processed by type
+ *   handlers.
  * @return {any | any[]}
  */
 

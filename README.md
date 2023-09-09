@@ -98,8 +98,9 @@ register.
     - the object which matched the key of the block being processed
     - any format options associated with the block being processed
     - the locale to use for formatting
-    - the object of placeholder data given to the original `format` call
-    - and the `format` function itself (see below) so that sub-messages can be
+    - the object of placeholder data given to the original `format`/`process`
+      call
+    - and the `process` function itself (see below) so that sub-messages can be
       processed by type handlers
 
 #### format(message, values = {})

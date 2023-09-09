@@ -6,6 +6,7 @@ Changelog
  - Minimum supported version of Node is now 18
  - Browser target in `.browserslistrc` file is now `defaults`, so the explicit
    `ie11` target has been removed and thus IE11 support has been dropped
+ - Type definitions are now included in this project
 
 ### 0.12.0
  - Dropped support for Node 10

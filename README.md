@@ -35,12 +35,10 @@ npm install @ultraq/icu-message-formatter
 
 An IIFE version of this library is available at:
 https://unpkg.com/@ultraq/icu-message-formatter/dist/icu-message-formatter.min.js
-
 In this form, this module will then be present in the global scope as `IcuMessageFormatter`.
 
 An ESM version of this library is available at:
 https://unpkg.com/@ultraq/icu-message-formatter/dist/icu-message-formatter.es.min.js
-
 That URL can be used directly in ESM scripts made for the browser, and otherwise
 works like the NPM package.
 

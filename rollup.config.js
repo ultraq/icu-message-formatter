@@ -1,19 +1,18 @@
-
-import babel       from '@rollup/plugin-babel';
-import commonjs    from '@rollup/plugin-commonjs';
+import babel from '@rollup/plugin-babel';
+import commonjs from '@rollup/plugin-commonjs';
 import nodeResolve from '@rollup/plugin-node-resolve';
 
 export default {
 	input: 'source/IcuMessageFormatter.js',
 	output: [
 		{
-			file: `lib/icu-message-formatter.cjs.js`,
-			format: 'cjs',
+			file: 'dist/icu-message-formatter.js',
+			format: 'es',
 			sourcemap: true
 		},
 		{
-			file: `lib/icu-message-formatter.es.js`,
-			format: 'es',
+			file: 'dist/icu-message-formatter.cjs',
+			format: 'cjs',
 			sourcemap: true
 		}
 	],

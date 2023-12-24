@@ -40,7 +40,7 @@
 		"build": "npm run build:dist && npm run build:browser && npm run build:dts",
 		"build:dist": "rollup --config",
 		"build:browser": "rollup --config rollup.config.browser.js",
-		"build:dts": "tsc dist/icu-message-formatter.js --allowJs --declaration --emitDeclarationOnly && tsc dist/icu-message-formatter.cjs --allowJs --declaration --emitDeclarationOnly",
+		"build:dts": "tsc --allowJs --declaration --emitDeclarationOnly dist/icu-message-formatter.js dist/icu-message-formatter.cjs",
 		"prepublishOnly": "npm run build"
 	},
 	"dependencies": {

@@ -1,12 +1,12 @@
-/* 
+/*
  * Copyright 2019, Emanuel Rabina (http://www.ultraq.net.nz/)
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *     http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -16,7 +16,6 @@
 
 import {findClosingBracket, splitFormattedArgument} from './utilities.js';
 
-import {flatten} from '@ultraq/array-utils';
 import {memoize} from '@ultraq/function-utils';
 
 /**
@@ -49,7 +48,7 @@ import {memoize} from '@ultraq/function-utils';
 
 /**
  * The main class for formatting messages.
- * 
+ *
  * @author Emanuel Rabina
  */
 export default class MessageFormatter {
@@ -57,7 +56,7 @@ export default class MessageFormatter {
 	/**
 	 * Creates a new formatter that can work using any of the custom type handlers
 	 * you register.
-	 * 
+	 *
 	 * @param {string} locale
 	 * @param {Record<string,TypeHandler>} [typeHandlers]
 	 *   Optional object where the keys are the names of the types to register,
@@ -73,12 +72,12 @@ export default class MessageFormatter {
 	/**
 	 * Formats an ICU message syntax string using `values` for placeholder data
 	 * and any currently-registered type handlers.
-	 * 
+	 *
 	 * @type {(message: string, values?: FormatValues) => string}
 	 */
 	format = memoize((message, values = {}) => {
 
-		return flatten(this.process(message, values)).join('');
+		return this.process(message, values).flat(Infinity).join('');
 	});
 
 	/**
@@ -88,10 +87,10 @@ export default class MessageFormatter {
 	 * their own type handlers.  This raw output is useful for other renderers,
 	 * eg: React where components can be used instead of being forced to return
 	 * raw strings.
-	 * 
+	 *
 	 * This method is used by {@link MessageFormatter#format} where it acts as a
 	 * string renderer.
-	 * 
+	 *
 	 * @param {string} message
 	 * @param {FormatValues} [values]
 	 * @return {any[]}

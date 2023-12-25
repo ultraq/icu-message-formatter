@@ -2,6 +2,10 @@
 Changelog
 =========
 
+### 0.14.2
+ - Fix types on the main exports too (tsc was being run over
+   transpiled-for-browser code 🤦‍♂️)
+
 ### 0.14.1
  - Update generated types for some of the utility exports
 

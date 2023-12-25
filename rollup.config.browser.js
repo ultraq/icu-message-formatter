@@ -23,7 +23,18 @@ export default {
 		commonjs(),
 		babel({
 			babelHelpers: 'bundled',
-			skipPreflightCheck: true // See: https://github.com/rollup/plugins/issues/381#issuecomment-627215009
+			skipPreflightCheck: true, // See: https://github.com/rollup/plugins/issues/381#issuecomment-627215009
+			presets: [
+				['@babel/preset-env', {
+					'targets': [
+						'defaults',
+						'maintained node versions'
+					]
+				}]
+			],
+			'plugins': [
+				'@babel/plugin-transform-runtime'
+			]
 		}),
 		nodeResolve({
 			browser: true

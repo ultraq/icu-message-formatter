@@ -19,12 +19,14 @@ export default {
 	plugins: [
 		commonjs(),
 		babel({
-			babelHelpers: 'runtime'
+			babelHelpers: 'runtime',
+			plugins: [
+				'@babel/plugin-transform-runtime'
+			]
 		}),
 		nodeResolve()
 	],
 	external: [
-		/@babel\/runtime/,
 		'@ultraq/function-utils'
 	],
 	treeshake: {

@@ -1,12 +1,12 @@
-/* 
+/*
  * Copyright 2019, Emanuel Rabina (http://www.ultraq.net.nz/)
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *     http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -26,16 +26,16 @@
  * Most branch-based type handlers are based around "cases".  For example,
  * `select` and `plural` compare compare a value to "case keys" to choose a
  * subtranslation.
- * 
+ *
  * This util splits "matches" portions provided to the aforementioned handlers
  * into case strings, and extracts any prepended arguments (for example,
  * `plural` supports an `offset:n` argument used for populating the magic `#`
  * variable).
- * 
+ *
  * @param {string} string
  * @return {ParseCasesResult}
  */
-export function parseCases(string) {
+export function parseCases(string = '') {
 	const isWhitespace = ch => /\s/.test(ch);
 
 	const args = [];
@@ -106,7 +106,7 @@ export function parseCases(string) {
 /**
  * Finds the index of the matching closing curly bracket, including through
  * strings that could have nested brackets.
- * 
+ *
  * @param {string} string
  * @param {number} fromIndex
  * @return {number}
@@ -133,7 +133,7 @@ export function findClosingBracket(string, fromIndex) {
 /**
  * Split a `{key, type, format}` block into those 3 parts, taking into account
  * nested message syntax that can exist in the `format` part.
- * 
+ *
  * @param {string} block
  * @return {string[]}
  *   An array with `key`, `type`, and `format` items in that order, if present
@@ -146,7 +146,7 @@ export function splitFormattedArgument(block) {
 /**
  * Like `String.prototype.split()` but where the limit parameter causes the
  * remainder of the string to be grouped together in a final entry.
- * 
+ *
  * @private
  * @param {string} string
  * @param {string} separator

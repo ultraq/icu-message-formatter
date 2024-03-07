@@ -21,12 +21,12 @@
 	"types": "dist/icu-message-formatter.d.ts",
 	"exports": {
 		"import": {
-			"default": "./dist/icu-message-formatter.js",
-			"types": "./dist/icu-message-formatter.d.ts"
+			"types": "./dist/icu-message-formatter.d.ts",
+			"default": "./dist/icu-message-formatter.js"
 		},
 		"require": {
-			"default": "./dist/icu-message-formatter.cjs",
-			"types": "./dist/icu-message-formatter.d.cts"
+			"types": "./dist/icu-message-formatter.d.cts",
+			"default": "./dist/icu-message-formatter.cjs"
 		}
 	},
 	"files": [

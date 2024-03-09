@@ -1,6 +1,6 @@
 {
 	"name": "@ultraq/icu-message-formatter",
-	"version": "0.14.2",
+	"version": "0.14.3",
 	"description": "Format ICU message syntax strings from supplied parameters and your own configurable types",
 	"author": "Emanuel Rabina <emanuelrabina@gmail.com> (http://www.ultraq.net.nz/)",
 	"license": "Apache-2.0",
@@ -45,7 +45,7 @@
 	},
 	"dependencies": {
 		"@babel/runtime": "^7.22.15",
-		"@ultraq/function-utils": "^0.5.1"
+		"@ultraq/function-utils": "^0.5.2"
 	},
 	"devDependencies": {
 		"@babel/core": "^7.22.15",

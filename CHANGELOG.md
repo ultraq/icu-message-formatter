@@ -2,6 +2,10 @@
 Changelog
 =========
 
+### 0.14.3
+ - Fix "Default condition should be last one" webpack build error
+	 ([#14](https://github.com/ultraq/icu-message-formatter/issues/14))
+
 ### 0.14.2
  - Fix types on the main exports too (tsc was being run over
    transpiled-for-browser code 🤦‍♂️)

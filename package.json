@@ -18,12 +18,14 @@
 	"type": "module",
 	"module": "dist/icu-message-formatter.js",
 	"main": "dist/icu-message-formatter.cjs",
-	"types": "dist/icu-message-formatter.d.ts",
+	"types": "dist/types/IcuMessageFormatter.d.ts",
 	"exports": {
 		"import": {
+			"types": "./dist/types/IcuMessageFormatter.d.ts",
 			"default": "./dist/icu-message-formatter.js"
 		},
 		"require": {
+			"types": "./dist/types/IcuMessageFormatter.d.ts",
 			"default": "./dist/icu-message-formatter.cjs"
 		}
 	},
@@ -38,7 +40,7 @@
 		"build": "npm run build:dist && npm run build:browser && npm run build:dts",
 		"build:dist": "vite build",
 		"build:browser": "vite build --config vite.config.browser.js",
-		"build:dts": "tsc source/IcuMessageFormatter.js --allowJs --declaration --emitDeclarationOnly --outFile dist/icu-message-formatter.d.ts",
+		"build:dts": "tsc source/IcuMessageFormatter.js --allowJs --declaration --emitDeclarationOnly --outDir dist/types",
 		"prepublishOnly": "npm run build"
 	},
 	"dependencies": {

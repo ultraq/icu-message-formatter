@@ -3,8 +3,3 @@
 import '@formatjs/intl-locale/polyfill';
 import '@formatjs/intl-numberformat/polyfill';
 import '@formatjs/intl-numberformat/locale-data/en-NZ';
-
-import {jest} from '@jest/globals';
-
-// Put Jest back on the global namespace for ESM mode
-global.jest = jest;

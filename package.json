@@ -1,6 +1,6 @@
 {
 	"name": "@ultraq/icu-message-formatter",
-	"version": "0.14.4",
+	"version": "0.15.0-beta.1",
 	"description": "Format ICU message syntax strings from supplied parameters and your own configurable types",
 	"author": "Emanuel Rabina <emanuelrabina@gmail.com> (http://www.ultraq.net.nz/)",
 	"license": "Apache-2.0",
@@ -21,11 +21,9 @@
 	"types": "dist/icu-message-formatter.d.ts",
 	"exports": {
 		"import": {
-			"types": "./dist/icu-message-formatter.d.ts",
 			"default": "./dist/icu-message-formatter.js"
 		},
 		"require": {
-			"types": "./dist/icu-message-formatter.d.cts",
 			"default": "./dist/icu-message-formatter.cjs"
 		}
 	},
@@ -36,36 +34,28 @@
 	"sideEffects": false,
 	"scripts": {
 		"lint": "eslint \"**/*.js\"",
-		"test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest",
+		"test": "vitest run",
 		"build": "npm run build:dist && npm run build:browser && npm run build:dts",
-		"build:dist": "rollup --config",
-		"build:browser": "rollup --config rollup.config.browser.js",
-		"build:dts": "tsc --allowJs --declaration --emitDeclarationOnly dist/icu-message-formatter.js dist/icu-message-formatter.cjs",
+		"build:dist": "vite build",
+		"build:browser": "vite build --config vite.config.browser.js",
+		"build:dts": "tsc source/IcuMessageFormatter.js --allowJs --declaration --emitDeclarationOnly --outFile dist/icu-message-formatter.d.ts",
 		"prepublishOnly": "npm run build"
 	},
 	"dependencies": {
-		"@babel/runtime": "^7.22.15",
 		"@ultraq/function-utils": "^0.5.2"
 	},
 	"devDependencies": {
-		"@babel/core": "^7.22.15",
-		"@babel/plugin-transform-runtime": "^7.22.15",
-		"@babel/preset-env": "^7.22.15",
 		"@formatjs/intl-locale": "^3.3.2",
 		"@formatjs/intl-numberformat": "^8.7.0",
-		"@jest/globals": "^29.7.0",
-		"@rollup/plugin-babel": "^6.0.3",
-		"@rollup/plugin-commonjs": "^25.0.4",
-		"@rollup/plugin-node-resolve": "^15.2.1",
-		"@rollup/plugin-terser": "^0.4.3",
-		"@types/jest": "^29.5.4",
+		"@vitest/coverage-v8": "^2.1.8",
 		"cross-env": "^7.0.3",
 		"eslint": "^9.17.0",
 		"eslint-config-ultraq": "^4.0.0",
 		"globals": "^15.14.0",
-		"jest": "^29.6.4",
-		"rollup": "^4.9.1",
-		"typescript": "^5.2.2"
+		"jsdom": "^25.0.1",
+		"typescript": "^5.2.2",
+		"vite": "^6.0.6",
+		"vitest": "^2.1.8"
 	},
 	"engines": {
 		"node": ">=18"

@@ -41,6 +41,7 @@
 		"build:dist": "rollup --config",
 		"build:browser": "rollup --config rollup.config.browser.js",
 		"build:dts": "tsc --allowJs --declaration --emitDeclarationOnly dist/icu-message-formatter.js dist/icu-message-formatter.cjs",
+		"typecheck": "attw --pack .",
 		"prepublishOnly": "npm run build"
 	},
 	"dependencies": {
@@ -48,6 +49,7 @@
 		"@ultraq/function-utils": "^0.5.2"
 	},
 	"devDependencies": {
+		"@arethetypeswrong/cli": "^0.17.2",
 		"@babel/core": "^7.22.15",
 		"@babel/plugin-transform-runtime": "^7.22.15",
 		"@babel/preset-env": "^7.22.15",

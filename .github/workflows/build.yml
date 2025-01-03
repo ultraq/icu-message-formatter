@@ -15,8 +15,9 @@ jobs:
           cache: 'npm'
       - run: npm ci
       - run: npm run lint
-      - run: npm run build
       - run: npm test
+      - run: npm run build
+      - run: npm run typecheck
       - uses: codecov/codecov-action@v4
         with:
           directory: coverage/

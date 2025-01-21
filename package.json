@@ -65,7 +65,6 @@
 		"eslint-config-ultraq": "^4.0.0",
 		"eslint-import-resolver-typescript": "^3.7.0",
 		"globals": "^15.14.0",
-		"jsdom": "^26.0.0",
 		"rollup": "^4.9.1",
 		"typescript": "^5.2.2",
 		"vitest": "^2.1.8"

@@ -123,15 +123,15 @@ components can be used instead of being forced to return raw strings.
 
 ### Type handlers available in this library
 
-### pluralTypeHandler
+#### pluralTypeHandler
 
 ```javascript
 import {pluralTypeHandler} from '@ultraq/icu-message-formatter';
 ```
 
 Handler for `plural` statements within ICU message syntax strings.  See
-https://formatjs.io/docs/core-concepts/icu-syntax#plural-format for more details
-on how the `plural` statement works.
+https://formatjs.github.io/docs/core-concepts/icu-syntax#plural-format for more
+details on how the `plural` statement works.
 
 For the special `#` placeholder, it will be processed as if it were
 `{key, number}`, using the `number` handler that has been registered with the
@@ -145,8 +145,8 @@ import {selectTypeHandler} from '@ultraq/icu-message-formatter';
 ```
 
 Handler for `select` statements within ICU message syntax strings.  See
-https://formatjs.io/docs/core-concepts/icu-syntax#select-format for more details
-on how the `select` statement works.
+https://formatjs.github.io/docs/core-concepts/icu-syntax#select-format for more
+details on how the `select` statement works.
 
 
 ### Other exported utilities

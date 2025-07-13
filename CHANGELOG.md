@@ -2,6 +2,9 @@
 Changelog
 =========
 
+### 0.15.0
+ - Minimum supported version of Node is now 20
+
 ### 0.14.3
  - Fix "Default condition should be last one" webpack build error
 	 ([#14](https://github.com/ultraq/icu-message-formatter/issues/14))

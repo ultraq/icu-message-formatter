@@ -114,9 +114,6 @@ export default class MessageFormatter {
 					}
 					let [key, type, format] = splitFormattedArgument(block);
 					let body = values[key];
-					if (body === null || body === undefined) {
-						body = '';
-					}
 					let typeHandler = type && this.typeHandlers[type];
 					result.push(typeHandler ?
 						typeHandler(body, format, this.locale, values, this.process.bind(this)) :

@@ -27,7 +27,7 @@ describe('selectTypeHandler', function() {
 	});
 
 	describe('Branch selection', function() {
-		let message = '{mood, select, happy {Good} sad {bad} other {Ambivalent}} morning';
+		let message = '{mood, select, happy {Good} sad {Bad} other {Ambivalent}} morning';
 
 		test('Explicit branch', function() {
 			let result = formatter.format(message, {mood: 'happy'});
@@ -37,6 +37,11 @@ describe('selectTypeHandler', function() {
 		test('Fallback branch', function() {
 			let result = formatter.format(message, {mood: 'angry'});
 			expect(result).toBe('Ambivalent morning');
+		});
+
+		test.each([null, undefined])('Branch condition is %s', function(condition) {
+			let result = formatter.format(`{greeting, select, ${condition} {Hello} other {Goodbye}}`, { greeting: condition });
+			expect(result).toBe('Hello');
 		});
 	});
 

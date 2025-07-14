@@ -4,6 +4,8 @@ Changelog
 
 ### 0.15.0
  - Minimum supported version of Node is now 20
+ - Allow null/undefined as branch conditions in `select`
+	 ([#16](https://github.com/ultraq/icu-message-formatter/issues/16))
 
 ### 0.14.3
  - Fix "Default condition should be last one" webpack build error

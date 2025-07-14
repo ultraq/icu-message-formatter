@@ -5,7 +5,7 @@ ICU Message Formatter
 [![Build Status](https://github.com/ultraq/icu-message-formatter/actions/workflows/build.yml/badge.svg)](https://github.com/ultraq/icu-message-formatter/actions)
 [![Coverage Status](https://coveralls.io/repos/github/ultraq/icu-message-formatter/badge.svg?branch=main)](https://coveralls.io/github/ultraq/icu-message-formatter?branch=main)
 [![npm](https://img.shields.io/npm/v/@ultraq/icu-message-formatter.svg?maxAge=3600)](https://www.npmjs.com/package/@ultraq/icu-message-formatter)
-[![Bundlephobia minified size](https://img.shields.io/bundlephobia/min/@ultraq/icu-message-formatter)](https://bundlephobia.com/result?p=@ultraq/icu-message-formatter)
+[![bundlejs gzipped size](https://deno.bundlejs.com/?q=@ultraq/icu-message-formatter&badge)](https://bundlejs.com/?q=%40ultraq%2Ficu-message-formatter&bundle=true)
 
 Format [ICU message syntax strings](https://formatjs.io/docs/core-concepts/icu-syntax)
 from supplied parameters and your own configurable types.

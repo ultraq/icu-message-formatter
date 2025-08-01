@@ -30,7 +30,7 @@ import {memoize} from '@ultraq/function-utils';
  */
 
 /**
- * @typedef {(value: TValue, matches: string, locale: string, values: FormatValues, process: ProcessFunction) => TReturn} TypeHandler
+ * @typedef {(value: TValue | null | undefined, matches: string, locale: string, values: FormatValues, process: ProcessFunction) => TReturn} TypeHandler
  * @template [TValue=any]
  * @template [TReturn=any]
  * @param {TValue} value

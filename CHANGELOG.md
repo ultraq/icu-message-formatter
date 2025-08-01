@@ -2,6 +2,11 @@
 Changelog
 =========
 
+### 0.15.2
+ - Fix the type of the `value` parameter in a type handler to be
+   `TValue | null | undefined` given `null`/`undefined` are valid values since
+   0.15.0
+
 ### 0.15.1
  - Make `TypeHandler` -> `TypeHandler<TValue = any, TReturn = any>` so that the
    value part can be specified and the return value inferred in TypeScript

@@ -3,8 +3,9 @@ Changelog
 =========
 
 ### 0.15.1
- - Make first parameter of `TypeHandler` generic so that you can specify what to
-   expect for it.
+ - Make `TypeHandler` -> `TypeHandler<TValue = any, TReturn = any>` so that the
+   value part can be specified and the return value inferred in TypeScript
+   codebases.
 
 ### 0.15.0
  - Minimum supported version of Node is now 20

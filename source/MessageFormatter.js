@@ -30,8 +30,9 @@ import {memoize} from '@ultraq/function-utils';
  */
 
 /**
- * @typedef {(value: TValue, matches: string, locale: string, values: FormatValues, process: ProcessFunction) => any | any[]} TypeHandler
+ * @typedef {(value: TValue, matches: string, locale: string, values: FormatValues, process: ProcessFunction) => TReturn} TypeHandler
  * @template [TValue=any]
+ * @template [TReturn=any]
  * @param {TValue} value
  *   The object which matched the key of the block being processed.
  * @param {string} matches
@@ -44,7 +45,7 @@ import {memoize} from '@ultraq/function-utils';
  * @param {ProcessFunction} process
  *   The `process` function itself so that sub-messages can be processed by type
  *   handlers.
- * @return {any | any[]}
+ * @return {TReturn}
  */
 
 /**

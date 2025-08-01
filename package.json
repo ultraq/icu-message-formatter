@@ -6,7 +6,7 @@
 	"license": "Apache-2.0",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/ultraq/icu-message-formatter.git"
+		"url": "git+https://github.com/ultraq/icu-message-formatter.git"
 	},
 	"keywords": [
 		"icu",

@@ -2,6 +2,10 @@
 Changelog
 =========
 
+### 0.15.1
+ - Make first parameter of `TypeHandler` generic so that you can specify what to
+   expect for it.
+
 ### 0.15.0
  - Minimum supported version of Node is now 20
  - Allow null/undefined as branch conditions in `select`

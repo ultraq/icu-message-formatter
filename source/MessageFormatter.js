@@ -30,8 +30,8 @@ import {memoize} from '@ultraq/function-utils';
  */
 
 /**
- * @callback TypeHandler
- * @param {any} value
+ * @typedef {<TValue = any>(value: TValue, matches: string, locale: string, values: FormatValues, process: ProcessFunction) => any | any[]} TypeHandler
+ * @param {TValue} value
  *   The object which matched the key of the block being processed.
  * @param {string} matches
  *   Any format options associated with the block being processed.

@@ -32,7 +32,7 @@
 		"build:dist": "rollup --config",
 		"build:browser": "rollup --config rollup.config.browser.js",
 		"build:dts": "tsc --allowJs --declaration --emitDeclarationOnly --lib es2022 dist/icu-message-formatter.js",
-		"typecheck": "attw --pack .",
+		"typecheck": "attw --pack . --profile esm-only",
 		"prepublishOnly": "npm run build"
 	},
 	"dependencies": {

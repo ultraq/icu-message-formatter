@@ -2,6 +2,11 @@
 Changelog
 =========
 
+### 0.16.0
+ - This library now pure ESM and cannot be `require`d from CommonJS projects,
+   and the browser script can only be used from ESM-capable browsers
+   ([#17](https://github.com/ultraq/icu-message-formatter/issues/17))
+
 ### 0.15.2
  - Fix the type of the `value` parameter in a type handler to be
    `TValue | null | undefined` given `null`/`undefined` are valid values since

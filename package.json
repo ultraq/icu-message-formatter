@@ -1,6 +1,6 @@
 {
 	"name": "@ultraq/icu-message-formatter",
-	"version": "0.15.2",
+	"version": "0.16.0-beta.1",
 	"description": "Format ICU message syntax strings from supplied parameters and your own configurable types",
 	"author": "Emanuel Rabina <emanuelrabina@gmail.com> (http://www.ultraq.net.nz/)",
 	"license": "Apache-2.0",
@@ -16,18 +16,9 @@
 		"i18n"
 	],
 	"type": "module",
-	"module": "dist/icu-message-formatter.js",
-	"main": "dist/icu-message-formatter.cjs",
-	"types": "dist/icu-message-formatter.d.ts",
 	"exports": {
-		"import": {
-			"types": "./dist/icu-message-formatter.d.ts",
-			"default": "./dist/icu-message-formatter.js"
-		},
-		"require": {
-			"types": "./dist/icu-message-formatter.d.cts",
-			"default": "./dist/icu-message-formatter.cjs"
-		}
+		"types": "./dist/icu-message-formatter.d.ts",
+		"default": "./dist/icu-message-formatter.js"
 	},
 	"files": [
 		"dist",
@@ -40,25 +31,18 @@
 		"build": "npm run build:dist && npm run build:browser && npm run build:dts",
 		"build:dist": "rollup --config",
 		"build:browser": "rollup --config rollup.config.browser.js",
-		"build:dts": "tsc --allowJs --declaration --emitDeclarationOnly --lib es2022 dist/icu-message-formatter.js dist/icu-message-formatter.cjs",
+		"build:dts": "tsc --allowJs --declaration --emitDeclarationOnly --lib es2022 dist/icu-message-formatter.js",
 		"typecheck": "attw --pack .",
 		"prepublishOnly": "npm run build"
 	},
 	"dependencies": {
-		"@babel/runtime": "^7.27.6",
 		"@ultraq/function-utils": "^0.5.2"
 	},
 	"devDependencies": {
 		"@arethetypeswrong/cli": "^0.18.2",
-		"@babel/core": "^7.28.0",
-		"@babel/plugin-transform-runtime": "^7.28.0",
-		"@babel/preset-env": "^7.28.0",
-		"@rollup/plugin-babel": "^6.0.4",
-		"@rollup/plugin-commonjs": "^28.0.6",
 		"@rollup/plugin-node-resolve": "^16.0.1",
 		"@rollup/plugin-terser": "^0.4.4",
 		"@vitest/coverage-v8": "^3.2.4",
-		"cross-env": "^7.0.3",
 		"eslint": "^9.31.0",
 		"eslint-config-ultraq": "^4.0.1",
 		"eslint-import-resolver-typescript": "^4.4.4",

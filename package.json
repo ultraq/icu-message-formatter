@@ -41,15 +41,15 @@
 	"devDependencies": {
 		"@arethetypeswrong/cli": "^0.18.2",
 		"@rollup/plugin-node-resolve": "^16.0.1",
-		"@rollup/plugin-terser": "^0.4.4",
-		"@vitest/coverage-v8": "^3.2.4",
-		"eslint": "^9.31.0",
+		"@rollup/plugin-terser": "^1.0.0",
+		"@vitest/coverage-v8": "^4.1.0",
+		"eslint": "^9.39.4",
 		"eslint-config-ultraq": "^4.0.1",
 		"eslint-import-resolver-typescript": "^4.4.4",
-		"globals": "^16.3.0",
-		"rollup": "^4.45.0",
-		"typescript": "^5.8.3",
-		"vitest": "^3.2.4"
+		"globals": "^17.4.0",
+		"rollup": "^4.59.1",
+		"typescript": "^5.9.3",
+		"vitest": "^4.1.0"
 	},
 	"engines": {
 		"node": ">=20"

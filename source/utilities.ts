@@ -14,13 +14,18 @@
  * limitations under the License.
  */
 
-/**
- * @typedef ParseCasesResult
- * @property {string[]} args
- *   A list of prepended arguments.
- * @property {Record<string,string>} cases
- *   A map of all cases.
- */
+type ParseCasesResult = {
+
+	/**
+	 * A list of prepended arguments.
+	 */
+	args: string[];
+
+	/**
+	 * A map of all cases.
+	 */
+	cases: Record<string, string>;
+}
 
 /**
  * Most branch-based type handlers are based around "cases".  For example,
@@ -32,17 +37,17 @@
  * `plural` supports an `offset:n` argument used for populating the magic `#`
  * variable).
  *
- * @param {string} string
- * @return {ParseCasesResult}
+ * @param string
+ * @return
  */
-export function parseCases(string = '') {
-	const isWhitespace = ch => /\s/.test(ch);
+export function parseCases(string = ''): ParseCasesResult {
+	const isWhitespace = (ch: string) => /\s/.test(ch);
 
-	const args = [];
-	const cases = {};
+	const args: string[] = [];
+	const cases: Record<string, string> = {};
 
 	let currTermStart = 0;
-	let latestTerm = null;
+	let latestTerm: string | null = null;
 	let inTerm = false;
 
 	let i = 0;
@@ -107,13 +112,13 @@ export function parseCases(string = '') {
  * Finds the index of the matching closing curly bracket, including through
  * strings that could have nested brackets.
  *
- * @param {string} string
- * @param {number} fromIndex
- * @return {number}
+ * @param string
+ * @param fromIndex
+ * @return
  *   The index of the matching closing bracket, or -1 if no closing bracket
  *   could be found.
  */
-export function findClosingBracket(string, fromIndex) {
+export function findClosingBracket(string: string, fromIndex: number): number {
 	let depth = 0;
 	for (let i = fromIndex + 1; i < string.length; i++) {
 		let char = string.charAt(i);
@@ -134,12 +139,12 @@ export function findClosingBracket(string, fromIndex) {
  * Split a `{key, type, format}` block into those 3 parts, taking into account
  * nested message syntax that can exist in the `format` part.
  *
- * @param {string} block
- * @return {string[]}
+ * @param block
+ * @return
  *   An array with `key`, `type`, and `format` items in that order, if present
  *   in the formatted argument block.
  */
-export function splitFormattedArgument(block) {
+export function splitFormattedArgument(block: string): string[] {
 	return split(block.slice(1, -1), ',', 3);
 }
 
@@ -147,14 +152,13 @@ export function splitFormattedArgument(block) {
  * Like `String.prototype.split()` but where the limit parameter causes the
  * remainder of the string to be grouped together in a final entry.
  *
- * @private
- * @param {string} string
- * @param {string} separator
- * @param {number} limit
- * @param {string[]} accumulator
- * @return {string[]}
+ * @param string
+ * @param separator
+ * @param limit
+ * @param accumulator
+ * @return
  */
-function split(string, separator, limit, accumulator = []) {
+function split(string: string, separator: string, limit: number, accumulator: string[] = []): string[] {
 	if (!string) {
 		return accumulator;
 	}

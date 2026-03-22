@@ -14,39 +14,10 @@
  * limitations under the License.
  */
 
-import {findClosingBracket, splitFormattedArgument} from './utilities.js';
+import type {FormatValues, TypeHandler} from './Types.ts';
+import {findClosingBracket, splitFormattedArgument} from './utilities.ts';
 
 import {memoize} from '@ultraq/function-utils';
-
-/**
- * @typedef {Record<string,any>} FormatValues
- */
-
-/**
- * @callback ProcessFunction
- * @param {string} message
- * @param {FormatValues} [values={}]
- * @return {any[]}
- */
-
-/**
- * @typedef {(value: TValue | null | undefined, matches: string, locale: string, values: FormatValues, process: ProcessFunction) => TReturn} TypeHandler
- * @template [TValue=any]
- * @template [TReturn=any]
- * @param {TValue} value
- *   The object which matched the key of the block being processed.
- * @param {string} matches
- *   Any format options associated with the block being processed.
- * @param {string} locale
- *   The locale to use for formatting.
- * @param {FormatValues} values
- *   The object of placeholder data given to the original `format`/`process`
- *   call.
- * @param {ProcessFunction} process
- *   The `process` function itself so that sub-messages can be processed by type
- *   handlers.
- * @return {TReturn}
- */
 
 /**
  * The main class for formatting messages.
@@ -55,17 +26,20 @@ import {memoize} from '@ultraq/function-utils';
  */
 export default class MessageFormatter {
 
+	private readonly locale: string;
+	private readonly typeHandlers: Record<string, TypeHandler>;
+
 	/**
 	 * Creates a new formatter that can work using any of the custom type handlers
 	 * you register.
 	 *
-	 * @param {string} locale
-	 * @param {Record<string,TypeHandler>} [typeHandlers]
+	 * @param locale
+	 * @param typeHandlers
 	 *   Optional object where the keys are the names of the types to register,
 	 *   their values being the functions that will return a nicely formatted
 	 *   string for the data and locale they are given.
 	 */
-	constructor(locale, typeHandlers = {}) {
+	constructor(locale: string, typeHandlers: Record<string, TypeHandler> = {}) {
 
 		this.locale = locale;
 		this.typeHandlers = typeHandlers;
@@ -74,10 +48,8 @@ export default class MessageFormatter {
 	/**
 	 * Formats an ICU message syntax string using `values` for placeholder data
 	 * and any currently-registered type handlers.
-	 *
-	 * @type {(message: string, values?: FormatValues) => string}
 	 */
-	format = memoize((message, values = {}) => {
+	format = memoize((message: string | null | undefined, values: FormatValues = {}): string => {
 
 		return this.process(message, values).flat(Infinity).join('');
 	});
@@ -93,11 +65,11 @@ export default class MessageFormatter {
 	 * This method is used by {@link MessageFormatter#format} where it acts as a
 	 * string renderer.
 	 *
-	 * @param {string} message
-	 * @param {FormatValues} [values]
-	 * @return {any[]}
+	 * @param message
+	 * @param values
+	 * @return
 	 */
-	process(message, values = {}) {
+	process(message: string | null | undefined, values: FormatValues = {}): any[] {
 
 		if (!message) {
 			return [];

@@ -14,9 +14,12 @@
  * limitations under the License.
  */
 
-import MessageFormatter from './MessageFormatter';
-import pluralTypeHandler from './pluralTypeHandler';
-import selectTypeHandler from './selectTypeHandler';
+
+import MessageFormatter from './MessageFormatter.ts';
+import pluralTypeHandler from './pluralTypeHandler.ts';
+import selectTypeHandler from './selectTypeHandler.ts';
+
+import {describe, expect, test, vi} from 'vitest';
 
 /**
  * Tests for the ICU message formatter.

@@ -14,9 +14,10 @@
  * limitations under the License.
  */
 
-import {parseCases} from './utilities.js';
+import type {TypeHandler} from './Types.ts';
+import {parseCases} from './utilities.ts';
 
-let pluralFormatter;
+let pluralFormatter: Intl.PluralRules | undefined;
 
 let keyCounter = 0;
 
@@ -26,15 +27,15 @@ const OTHER = 'other';
 
 /**
  * @private
- * @param {string} caseBody
- * @param {number} value
- * @return {{caseBody: string, numberValues: object}}
+ * @param caseBody
+ * @param value
+ * @return
  */
-function replaceNumberSign(caseBody, value) {
+function replaceNumberSign(caseBody: string, value: number): { caseBody: string; numberValues: object; } {
 	let i = 0;
 	let output = '';
 	let numBraces = 0;
-	const numberValues = {};
+	const numberValues: Record<string, number> = {};
 
 	while (i < caseBody.length) {
 		if (caseBody[i] === '#' && !numBraces) {
@@ -68,15 +69,8 @@ function replaceNumberSign(caseBody, value) {
  *
  * See https://formatjs.io/docs/core-concepts/icu-syntax#plural-format for more
  * details on how the `plural` statement works.
- *
- * @param {string} value
- * @param {string} matches
- * @param {string} locale
- * @param {import('./MessageFormatter.js').FormatValues} values
- * @param {import('./MessageFormatter.js').ProcessFunction} process
- * @return {any | any[]}
  */
-export default function pluralTypeHandler(value, matches, locale, values, process) {
+const pluralTypeHandler: TypeHandler<string> = (value, matches, locale, values, process) => {
 	const {args, cases} = parseCases(matches);
 
 	let intValue = parseInt(value);
@@ -119,4 +113,6 @@ export default function pluralTypeHandler(value, matches, locale, values, proces
 	}
 
 	return value;
-}
+};
+
+export default pluralTypeHandler;

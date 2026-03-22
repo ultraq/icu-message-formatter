@@ -14,7 +14,9 @@
  * limitations under the License.
  */
 
-import {parseCases} from './utilities';
+import {parseCases} from './utilities.ts';
+
+import {describe, expect, test} from 'vitest';
 
 /**
  * Tests for the `parseCases` util.

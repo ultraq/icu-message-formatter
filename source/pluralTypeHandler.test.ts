@@ -14,8 +14,10 @@
  * limitations under the License.
  */
 
-import MessageFormatter from './MessageFormatter.js';
-import pluralTypeHandler from './pluralTypeHandler.js';
+import MessageFormatter from './MessageFormatter.ts';
+import pluralTypeHandler from './pluralTypeHandler.ts';
+
+import {describe, expect, test, vi} from 'vitest';
 
 /**
  * Tests for the `plural` handler.
@@ -180,7 +182,7 @@ describe('pluralTypeHandler', function() {
 
 	describe('Empty matches', function() {
 		test('No matching branch', function() {
-			let result = pluralTypeHandler('some value');
+			let result = pluralTypeHandler('some value', '', 'en-NZ', {}, () => []);
 			expect(result).toBe('some value');
 		});
 	});

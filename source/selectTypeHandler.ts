@@ -14,7 +14,8 @@
  * limitations under the License.
  */
 
-import {parseCases} from './utilities.js';
+import type {TypeHandler} from './Types.ts';
+import {parseCases} from './utilities.ts';
 
 const OTHER = 'other';
 
@@ -24,15 +25,8 @@ const OTHER = 'other';
  *
  * See https://formatjs.io/docs/core-concepts/icu-syntax#select-format for more
  * details on how the `select` statement works.
- *
- * @param {string} value
- * @param {string} matches
- * @param {string} locale
- * @param {import('./MessageFormatter.js').FormatValues} values
- * @param {import('./MessageFormatter.js').ProcessFunction} process
- * @return {any | any[]}
  */
-export default function selectTypeHandler(value, matches, locale, values, process) {
+const selectTypeHandler: TypeHandler<string> = (value, matches, _locale, values, process) => {
 	const {cases} = parseCases(matches);
 
 	if (value in cases) {
@@ -43,4 +37,6 @@ export default function selectTypeHandler(value, matches, locale, values, proces
 	}
 
 	return value;
-}
+};
+
+export default selectTypeHandler;

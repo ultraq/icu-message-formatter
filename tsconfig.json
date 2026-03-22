@@ -1,0 +1,20 @@
+{
+	"extends": [
+		"@tsconfig/node-lts",
+		"@tsconfig/node-ts"
+	],
+	"compilerOptions": {
+		"declaration": true,
+		"lib": ["es2020"],
+		"module": "NodeNext",
+		"moduleResolution": "nodenext",
+		"outDir": "dist",
+		"target": "es2020"
+	},
+	"include": [
+		"source/**/*"
+	],
+	"exclude": [
+		"**/*.test.ts"
+	]
+}

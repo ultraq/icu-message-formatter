@@ -14,8 +14,10 @@
  * limitations under the License.
  */
 
-import MessageFormatter from './MessageFormatter.js';
-import selectTypeHandler from './selectTypeHandler.js';
+import MessageFormatter from './MessageFormatter.ts';
+import selectTypeHandler from './selectTypeHandler.ts';
+
+import {describe, expect, test} from 'vitest';
 
 /**
  * Tests for the `select` handler.
@@ -56,7 +58,7 @@ describe('selectTypeHandler', function() {
 
 	describe('Empty matches', function() {
 		test('No matching branch', function() {
-			let result = selectTypeHandler('some value');
+			let result = selectTypeHandler('some value', '', 'en-NZ', {}, () => []);
 			expect(result).toBe('some value');
 		});
 	});

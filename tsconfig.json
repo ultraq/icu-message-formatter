@@ -5,11 +5,8 @@
 	],
 	"compilerOptions": {
 		"declaration": true,
-		"lib": ["es2020"],
-		"module": "NodeNext",
-		"moduleResolution": "nodenext",
 		"outDir": "dist",
-		"target": "es2020"
+		"rootDir": "source"
 	},
 	"include": [
 		"source/**/*"

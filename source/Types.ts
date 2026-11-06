@@ -34,7 +34,3 @@ export type ProcessFunction = (message: string, values?: FormatValues) => any[];
 export interface TypeHandler<TValue = any, TReturn = any | any[]> {
 	(value: TValue, matches: string, locale: string, values: FormatValues, process: ProcessFunction): TReturn;
 }
-
-declare module '@ultraq/function-utils' {
-	export function memoize<T extends (...args: any[]) => any>(fn: T): T;
-}

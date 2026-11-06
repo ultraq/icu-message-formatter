@@ -34,9 +34,6 @@
 		"typecheck": "attw --pack . --profile esm-only",
 		"prepublishOnly": "npm run build"
 	},
-	"dependencies": {
-		"@ultraq/function-utils": "^0.5.2"
-	},
 	"devDependencies": {
 		"@arethetypeswrong/cli": "^0.18.2",
 		"@eslint/js": "^9.39.4",
@@ -50,9 +47,10 @@
 		"eslint-config-ultraq": "^4.0.1",
 		"eslint-import-resolver-typescript": "^4.4.4",
 		"globals": "^17.4.0",
+		"memoize": "^11.0.0",
 		"rollup": "^4.59.1",
 		"typescript": "^6.0.2",
-		"typescript-eslint": "^8.57.1",
+		"typescript-eslint": "^8.59.1",
 		"vitest": "^4.1.0"
 	},
 	"engines": {

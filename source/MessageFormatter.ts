@@ -17,8 +17,6 @@
 import type {FormatValues, TypeHandler} from './Types.ts';
 import {findClosingBracket, splitFormattedArgument} from './utilities.ts';
 
-import {memoize} from '@ultraq/function-utils';
-
 /**
  * The main class for formatting messages.
  *
@@ -49,10 +47,10 @@ export default class MessageFormatter {
 	 * Formats an ICU message syntax string using `values` for placeholder data
 	 * and any currently-registered type handlers.
 	 */
-	format = memoize((message: string | null | undefined, values: FormatValues = {}): string => {
+	format(message: string | null | undefined, values: FormatValues = {}): string {
 
 		return this.process(message, values).flat(Infinity).join('');
-	});
+	}
 
 	/**
 	 * Process an ICU message syntax string using `values` for placeholder data

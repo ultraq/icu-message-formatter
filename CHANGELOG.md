@@ -6,6 +6,9 @@ Changelog
  - This library now pure ESM and cannot be `require`d from CommonJS projects,
    and the browser script can only be used from ESM-capable browsers
    ([#17](https://github.com/ultraq/icu-message-formatter/issues/17))
+ - The baked-in memoization (and dependency) of the `Formatter#format` method
+   has been removed in favour of BYO memoization
+   ([#19](https://github.com/ultraq/icu-message-formatter/issues/19))
 
 ### 0.15.2
  - Fix the type of the `value` parameter in a type handler to be

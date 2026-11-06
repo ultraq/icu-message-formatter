@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-
 import MessageFormatter from './MessageFormatter.ts';
 import pluralTypeHandler from './pluralTypeHandler.ts';
 import selectTypeHandler from './selectTypeHandler.ts';
 
+import memoize from 'memoize';
 import {describe, expect, test, vi} from 'vitest';
 
 /**
@@ -150,6 +150,22 @@ describe('MessageFormatter', function() {
 			// number sign only works in the immediately corresponding layer! Can't use a nested one.
 			expect(formatter.format(message, {'gender_of_host': 'male', host: 'John', 'num_guests': 115, guest: 'you'})).toBe('John invites you and # other people to his party.');
 			expect(formatter.format(message, {'gender_of_host': 'other', host: 'John', 'num_guests': 12345, guest: 'you'})).toBe('John invites you and # other people to their party.');
+		});
+
+		test('BYO memoization', () => {
+			let formatter = new MessageFormatter('en-NZ', undefined);
+			let formatSpy = vi.spyOn(formatter, 'format');
+			formatter.format = memoize(formatter.format);
+
+			const message = 'Hello {name}!';
+			const args = { name: 'Emanuel' };
+			let result = formatter.format(message, args);
+			expect(result).toBe('Hello Emanuel!');
+			expect(formatSpy).toHaveBeenCalledOnce();
+
+			result = formatter.format(message, args);
+			expect(result).toBe('Hello Emanuel!');
+			expect(formatSpy).toHaveBeenCalledOnce();
 		});
 	});
 });

@@ -17,8 +17,8 @@
 	],
 	"type": "module",
 	"exports": {
-		"types": "./dist/icu-message-formatter.d.ts",
-		"default": "./dist/icu-message-formatter.js"
+		"types": "./dist/IcuMessageFormatter.d.ts",
+		"default": "./dist/IcuMessageFormatter.js"
 	},
 	"files": [
 		"dist",

@@ -13,7 +13,10 @@ export default defineConfig({
 		}
 	],
 	plugins: [
-		typescript(),
+		typescript({
+			module: 'Node16',
+			moduleResolution: 'Node16'
+		}),
 		nodeResolve({
 			browser: true
 		}),

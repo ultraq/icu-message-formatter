@@ -24,8 +24,8 @@ import {findClosingBracket, splitFormattedArgument} from './utilities.ts';
  */
 export default class MessageFormatter {
 
-	private readonly locale: string;
-	private readonly typeHandlers: Record<string, TypeHandler>;
+	readonly locale: string;
+	readonly typeHandlers: Record<string, TypeHandler>;
 
 	/**
 	 * Creates a new formatter that can work using any of the custom type handlers

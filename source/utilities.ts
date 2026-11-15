@@ -41,7 +41,7 @@ type ParseCasesResult = {
  * @return
  */
 export function parseCases(string = ''): ParseCasesResult {
-	const isWhitespace = (ch: string) => /\s/.test(ch);
+	const isWhitespace = (ch: string): boolean => /\s/.test(ch);
 
 	const args: string[] = [];
 	const cases: Record<string, string> = {};

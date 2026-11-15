@@ -35,25 +35,25 @@
 		"prepublishOnly": "npm run build"
 	},
 	"devDependencies": {
-		"@arethetypeswrong/cli": "^0.18.2",
-		"@eslint/js": "^9.39.4",
-		"@rollup/plugin-node-resolve": "^16.0.1",
-		"@rollup/plugin-terser": "^1.0.0",
-		"@rollup/plugin-typescript": "^12.3.0",
-		"@tsconfig/node-lts": "^24.0.0",
-		"@tsconfig/node-ts": "^23.6.4",
-		"@vitest/coverage-v8": "^4.1.0",
-		"eslint": "^9.39.4",
-		"eslint-config-ultraq": "^4.0.1",
-		"eslint-import-resolver-typescript": "^4.4.4",
-		"globals": "^17.4.0",
+		"@arethetypeswrong/cli": "^0.18.5",
+		"@eslint/js": "^10.0.1",
+		"@rollup/plugin-node-resolve": "^16.0.3",
+		"@rollup/plugin-terser": "^1.0.2",
+		"@rollup/plugin-typescript": "^12.3.1",
+		"@tsconfig/node-lts": "^26.0.1",
+		"@tsconfig/node-ts": "^23.6.5",
+		"@vitest/coverage-v8": "^5.1.0",
+		"eslint": "^10.15.0",
+		"eslint-config-ultraq": "^5.0.0-beta.1",
+		"eslint-import-resolver-typescript": "^4.4.5",
+		"globals": "^17.14.0",
 		"memoize": "^11.0.0",
-		"rollup": "^4.59.1",
-		"typescript": "^6.0.2",
-		"typescript-eslint": "^8.59.1",
-		"vitest": "^4.1.0"
+		"rollup": "^4.68.3",
+		"typescript": "^6.0.3",
+		"typescript-eslint": "^8.72.2",
+		"vitest": "^5.1.0"
 	},
 	"engines": {
-		"node": ">=20"
+		"node": ">=22"
 	}
 }

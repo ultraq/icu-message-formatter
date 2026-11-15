@@ -40,7 +40,7 @@ describe('parseCases', function() {
 		test('fails if cant close case', function() {
 			expect(() => {
 				parseCases('key1 {{case1}');
-			}).toThrowError();
+			}).toThrow();
 		});
 
 		test('multiple cases', function() {

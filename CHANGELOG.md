@@ -9,6 +9,7 @@ Changelog
  - The baked-in memoization (and dependency) of the `Formatter#format` method
    has been removed in favour of BYO memoization
    ([#19](https://github.com/ultraq/icu-message-formatter/issues/19))
+ - The project source is now written in TypeScript
 
 ### 0.15.2
  - Fix the type of the `value` parameter in a type handler to be

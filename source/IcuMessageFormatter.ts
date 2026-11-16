@@ -17,4 +17,5 @@
 export {default as MessageFormatter}  from './MessageFormatter.ts';
 export {default as pluralTypeHandler} from './pluralTypeHandler.ts';
 export {default as selectTypeHandler} from './selectTypeHandler.ts';
+export type {TypeHandler} from './Types.ts';
 export {findClosingBracket, parseCases, splitFormattedArgument} from './utilities.ts';

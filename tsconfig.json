@@ -9,7 +9,7 @@
 		"rootDir": "source"
 	},
 	"exclude": [
-		"vitest.config.ts",
-		"**/*.test.ts"
+		"**/*.test.ts",
+		"vitest.config.ts"
 	]
 }

@@ -1,4 +1,4 @@
-import nodeResolve from '@rollup/plugin-node-resolve';
+import {nodeResolve} from '@rollup/plugin-node-resolve';
 import terser from '@rollup/plugin-terser';
 import typescript from '@rollup/plugin-typescript';
 import {defineConfig} from 'rollup';
@@ -13,10 +13,7 @@ export default defineConfig({
 		}
 	],
 	plugins: [
-		typescript({
-			module: 'Node16',
-			moduleResolution: 'Node16'
-		}),
+		typescript(),
 		nodeResolve({
 			browser: true
 		}),

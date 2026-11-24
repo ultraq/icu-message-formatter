@@ -22,9 +22,6 @@ export default defineConfig({
 		},
 		sourceType: 'module'
 	},
-	settings: {
-		'import/resolver': 'eslint-import-resolver-typescript'
-	},
 	rules: {
 		'@typescript-eslint/explicit-function-return-type': 'error',
 		'@typescript-eslint/no-explicit-any': 'off',

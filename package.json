@@ -44,7 +44,7 @@
 		"@types/node": "^26.6.6",
 		"@vitest/coverage-v8": "^5.1.0",
 		"eslint": "^10.15.0",
-		"eslint-config-ultraq": "^5.0.0-beta",
+		"eslint-config-ultraq": "^5.0.0",
 		"globals": "^17.14.0",
 		"memoize": "^11.0.0",
 		"rimraf": "^6.1.4",

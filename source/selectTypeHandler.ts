@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type {TypeHandler} from './Types.ts';
+import type {TypeHandler} from './TypeHandler.ts';
 import {parseCases} from './utilities.ts';
 
 const OTHER = 'other';

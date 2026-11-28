@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type {FormatValues, TypeHandler} from './Types.ts';
+import type {FormatValues, TypeHandler} from './TypeHandler.ts';
 import {findClosingBracket, splitFormattedArgument} from './utilities.ts';
 
 /**
